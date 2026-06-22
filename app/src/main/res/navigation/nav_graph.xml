@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_reporte">
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.tecsup.aresapp.DashBoard"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
+    <fragment
+        android:id="@+id/nav_control"
+        android:name="com.tecsup.aresapp.Control"
+        android:label="fragment_control"
+        tools:layout="@layout/fragment_control" />
+    <fragment
+        android:id="@+id/nav_diagnostico"
+        android:name="com.tecsup.aresapp.Diagnostico"
+        android:label="fragment_diagnostico"
+        tools:layout="@layout/fragment_diagnostico" />
+    <fragment
+        android:id="@+id/nav_reporte"
+        android:name="com.tecsup.aresapp.Reporte"
+        android:label="fragment_reporte"
+        tools:layout="@layout/fragment_reporte" />
+    <fragment
+        android:id="@+id/nav_cuenta"
+        android:name="com.tecsup.aresapp.CuentaFragment"
+        android:label="fragment_cuenta"
+        tools:layout="@layout/fragment_cuenta" />
+
+</navigation>

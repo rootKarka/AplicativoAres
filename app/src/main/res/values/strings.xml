@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Ares App</string>
+
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_control">Control</string>
+    <string name="menu_diagnostico">Diagnóstico</string>
+    <string name="menu_reporte">Reporte</string>
+
+    <string name="reporte_desc_modulo">Descripción del Módulo</string>
+    <string name="reporte_detalle">Detalle del Reporte</string>
+    <string name="reporte_adjuntar">Adjuntar Pruebas</string>
+    <string name="reporte_detalles_mision">Detalles de la Misión</string>
+    <string name="btn_borrador">Borrador</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="app_name_report">ARES</string>
+    <string name="reporte_titulo">REPORTE</string>
+    <string name="mision_label">MISIÓN: ARES-01</string>
+    <string name="tipo_documento">TIPO DE DOCUMENTO</string>
+    <string name="reporte_situacion">Reporte de Situación</string>
+    <string name="datos_automaticos">DATOS AUTOMÁTICOS</string>
+    <string name="sincronizado">SINCRONIZADO</string>
+    <string name="bateria_label">BATERÍA</string>
+    <string name="latencia_label">LATENCIA</string>
+    <string name="alertas_label">ALERTAS (30M)</string>
+    <string name="criticas_label">02 Críticas</string>
+    <string name="estado_gravedad">ESTADO DE GRAVEDAD</string>
+    <string name="normal">NORMAL</string>
+    <string name="precaucion">PRECAUCIÓN</string>
+    <string name="critico">CRÍTICO</string>
+    <string name="contador_victimas">CONTADOR DE VÍCTIMAS</string>
+    <string name="heridos">Heridos</string>
+    <string name="inconscientes">Inconscientes</string>
+    <string name="galeria_multimedia">GALERÍA MULTIMEDIA</string>
+    <string name="camara_ugv">CÁMARA UGV-01</string>
+    <string name="live">LIVE</string>
+    <string name="subir_foto">SUBIR FOTO DISPOSITIVO</string>
+    <string name="notas_operador">NOTAS DEL OPERADOR</string>
+    <string name="placeholder_notas">Ingrese observaciones tácticas (ej: acceso sur bloqueado)…</string>
+    <string name="enviar_base">ENVIAR A BASE</string>
+    <string name="nav_hud">HUD</string>
+    <string name="nav_mapa">MAPA</string>
+    <string name="nav_reporte">REPORTE</string>
+    <string name="nav_sistema">SISTEMA</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

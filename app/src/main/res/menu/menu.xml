@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/menu_dashboard"
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/ic_dashboard" />
+    <item
+        android:title="@string/menu_control"
+        android:id="@+id/nav_control"
+        android:icon="@drawable/ic_control" />
+    <item
+        android:title="@string/menu_diagnostico"
+        android:id="@+id/nav_diagnostico"
+        android:icon="@drawable/ic_diagnostico" />
+    <item
+        android:title="@string/menu_reporte"
+        android:id="@+id/nav_reporte"
+        android:icon="@drawable/ic_reporte" />
+
+</menu>
