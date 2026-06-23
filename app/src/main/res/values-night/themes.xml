@@ -1,7 +1,29 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AresApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ares_bg_dark">#0A0E17</color>
+    <color name="ares_card_bg">#131B26</color>
+    <color name="ares_card_stroke">#1E2A3B</color>
+    <color name="ares_text_primary">#FFFFFF</color>
+    <color name="ares_text_secondary">#7A8A9E</color>
+    <color name="ares_blue">#3498DB</color>
+    <color name="ares_green">#2ECC71</color>
+    <color name="ares_orange">#E67E22</color>
+    <color name="ares_yellow">#F1C40F</color>
+    <color name="ares_control_card_camera">#0D1420</color>
+
+    <color name="ares_black">#0A0A0A</color>
+    <color name="ares_dark">#111418</color>
+    <color name="ares_surface">#161B22</color>
+    <color name="ares_card">#1C2128</color>
+    <color name="ares_border">#2C2F3B</color>
+    <color name="ares_blue_report">#1F70C1</color>
+    <color name="ares_blue_dim">#1A3A5C</color>
+    <color name="ares_white">#E8E8E8</color>
+    <color name="ares_grey">#8B949E</color>
+    <color name="ares_orange_report">#F97316</color>
+    <color name="ares_orange_dim">#3D1F08</color>
+    <color name="ares_green_report">#22C55E</color>
+    <color name="ares_yellow_repot">#EAB308</color>
+    <color name="ares_red">#EF4444</color>
+    <color name="ares_counter_bg">#0D1117</color>
 </resources>

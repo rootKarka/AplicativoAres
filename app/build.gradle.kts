@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -51,4 +52,11 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:${nav_version}")
 
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+    // Nuevo: para manejar resultados de cámara/galería de forma moderna
+    implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("androidx.fragment:fragment-ktx:1.7.1")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_dashboard"
-        android:name="com.tecsup.aresapp.DashBoard"
-        android:label="fragment_dash_board"
-        tools:layout="@layout/fragment_dash_board" />
+        android:name="com.tecsup.aresapp.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/nav_control"
         android:name="com.tecsup.aresapp.Control"
