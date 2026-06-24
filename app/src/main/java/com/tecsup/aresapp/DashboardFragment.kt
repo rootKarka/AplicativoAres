@@ -71,7 +71,7 @@ class DashboardFragment : Fragment() {
             return
         }
 
-        client = object : WebSocketClient(URI("ws://192.168.100.32:8000/ws/sensores/")) {
+        client = object : WebSocketClient(URI("ws://10.229.186.51:8000/ws/sensores/")) {
             override fun onOpen(handshakedata: ServerHandshake?) {
                 Log.d("WS", "WebSocket conectado exitosamente")
             }

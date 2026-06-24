@@ -1,22 +1,47 @@
 package com.tecsup.aresapp
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tecsup.aresapp.databinding.ActivityMainBinding
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var fabExpanded = false
+
+    // Variables para la gestión de Notificaciones y Mensajería
+    private var contadorNotificaciones = 0
+    private var badgeDrawable: BadgeDrawable? = null
+    private val CHANNEL_ID = "ARES_CRITICAL_ALERTS"
+    private lateinit var alertaReceiver: AlertaAccionReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +56,17 @@ class MainActivity : AppCompatActivity() {
         setupThemeIcon()
         setupTopBarMenu(navController)
         setupExpandableFab()
+        setupNotificationBadge()
+        crearCanalNotificaciones()
+        registrarAlertaReceiver()
 
-        // ── NUEVO: Listener para ocultar el FAB en el Control ──
+        // ── LISTENER ORIGINAL PARA OCULTAR EL FAB EN CONTROL (SIN CAMBIOS) ──
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            // Revisa que R.id.nav_control sea el ID real de tu fragmento en tu nav_graph.xml
             if (destination.id == R.id.nav_control) {
-                // Si entramos al Control, contraemos el menú (por si estaba abierto) y lo ocultamos
                 if (fabExpanded) collapseFab()
-                binding.fabMain.hide() // .hide() lo oculta con una animación suave
+                binding.fabMain.hide()
             } else {
-                // Si estamos en cualquier otra pantalla (Mapa, Ajustes, etc.), lo mostramos
-                binding.fabMain.show() // .show() lo aparece con animación
+                binding.fabMain.show()
             }
         }
     }
@@ -57,6 +82,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupTopBarMenu(navController: NavController) {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.action_notifications -> {
+                    mostrarHistorialNotificacionesYMensajes()
+                    true
+                }
                 R.id.nav_cuenta -> {
                     navController.navigate(R.id.nav_cuenta)
                     true
@@ -85,9 +114,31 @@ class MainActivity : AppCompatActivity() {
             if (fabExpanded) expandFab() else collapseFab()
         }
 
+        // NUEVO: Acción para enviar mensaje al Administrador
+        binding.fabMensaje.setOnClickListener {
+            collapseFab()
+            val inputEditText = EditText(this).apply {
+                hint = "Escribe un mensaje urgente al administrador..."
+                setPadding(50, 40, 50, 40)
+            }
+
+            MaterialAlertDialogBuilder(this)
+                .setTitle("💬 Mensaje Directo al Admin")
+                .setMessage("Reporta incidencias operativas de la misión:")
+                .setView(inputEditText)
+                .setPositiveButton("Enviar") { _, _ ->
+                    val textoMensaje = inputEditText.text.toString()
+                    if (textoMensaje.isNotBlank()) {
+                        enviarMensajeAlBackend(textoMensaje)
+                    }
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
+
         binding.fabCamaraEntorno.setOnClickListener {
             collapseFab()
-            verificarPermisoYAbrirCamara() // ← Ahora llama a la verificación primero
+            verificarPermisoYAbrirCamara()
         }
 
         binding.fabMicBitacora.setOnClickListener {
@@ -96,48 +147,137 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ── GESTIÓN DE PERMISOS EN TIEMPO DE EJECUCIÓN ──
+    private fun enviarMensajeAlBackend(contenido: String) {
+        // Simulación de envío: Aquí irá la petición POST asíncrona a la tabla 'mensaje_operador'
+        Toast.makeText(this, "📨 Mensaje enviado al Administrador", Toast.LENGTH_SHORT).show()
+    }
 
-    // Este launcher maneja la respuesta del usuario al cartel de "Permitir que ARES use la cámara"
+    @androidx.annotation.OptIn(com.google.android.material.badge.ExperimentalBadgeUtils::class)
+    private fun setupNotificationBadge() {
+        binding.topAppBar.post {
+            badgeDrawable = com.google.android.material.badge.BadgeDrawable.create(this).apply {
+                backgroundColor = ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark)
+                badgeTextColor = ContextCompat.getColor(this@MainActivity, android.R.color.white)
+                isVisible = false
+            }
+            com.google.android.material.badge.BadgeUtils.attachBadgeDrawable(
+                badgeDrawable!!, binding.topAppBar, R.id.action_notifications
+            )
+        }
+    }
+
+    fun incrementarNotificaciones() {
+        contadorNotificaciones++
+        badgeDrawable?.apply {
+            number = contadorNotificaciones
+            isVisible = true
+        }
+    }
+
+    fun limpiarNotificaciones() {
+        contadorNotificaciones = 0
+        badgeDrawable?.isVisible = false
+    }
+
+    private fun mostrarHistorialNotificacionesYMensajes() {
+        limpiarNotificaciones()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("🔔 Centro de Alertas Recientes")
+            .setMessage("No tienes nuevas instrucciones críticas pendientes del Administrador.")
+            .setPositiveButton("Entendido", null)
+            .show()
+    }
+
+    // ── CANAL DE ALERTAS FLOTANTES (HEADS-UP) ──
+    private fun crearCanalNotificaciones() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Alertas Críticas ARES"
+            val descriptionText = "Notificaciones de alta prioridad para control de riesgos y fugas."
+            val importance = NotificationManager.IMPORTANCE_HIGH // Obligatorio para Banner Flotante
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun registrarAlertaReceiver() {
+        alertaReceiver = AlertaAccionReceiver()
+        val filter = android.content.IntentFilter("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO")
+
+        // Esta línea usa ContextCompat, que maneja automáticamente las versiones de Android
+        ContextCompat.registerReceiver(
+            this,
+            alertaReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+    }
+
+    @android.annotation.SuppressLint("MissingPermission")
+    // Método expuesto para ser llamado cuando el WebSocket reciba alertas críticas
+    fun mostrarBannerAlertaCritica(id: Int, titulo: String, mensaje: String) {
+        val intentEntendido = Intent("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO").apply {
+            putExtra("ALERTA_ID", id)
+            setPackage(packageName)
+        }
+        val pendingIntentEntendido = PendingIntent.getBroadcast(
+            this, id, intentEntendido,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(titulo)
+            .setContentText(mensaje)
+            .setPriority(NotificationCompat.PRIORITY_MAX) // Despliega la tarjeta arriba inmediatamente
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setAutoCancel(true)
+            .addAction(R.drawable.ic_bucle, "ENTENDIDO (PROCESAR)", pendingIntentEntendido)
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        try {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < 33) {
+                notificationManager.notify(id, builder.build())
+                incrementarNotificaciones()
+            }
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+
+    // ── GESTIÓN DE PERMISOS DE CÁMARA ──
     private val requestCameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { esConcedido ->
         if (esConcedido) {
-            // El usuario dio permiso por primera vez, abrimos la cámara
             abrirCamaraEntorno()
         } else {
-            // El usuario rechazó el permiso
-            android.widget.Toast.makeText(
-                this,
-                "⚠️ Se requiere el permiso de cámara para registrar evidencias del entorno.",
-                android.widget.Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, "⚠️ Se requiere el permiso de cámara para registrar evidencias.", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun verificarPermisoYAbrirCamara() {
         val estadoPermiso = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-
         if (estadoPermiso == PackageManager.PERMISSION_GRANTED) {
-            // Si el permiso ya está aprobado de antes, abre la cámara directo
             abrirCamaraEntorno()
         } else {
-            // Si no tiene el permiso, lanza el cartel flotante del sistema
             requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
-
-    // ── CÁMARA DEL OPERADOR: INTENT IMPLÍCITO NATIVO ──
+    // ── INTENT NATIVO DE CÁMARA ──
     private var fotoUriActual: android.net.Uri? = null
 
     private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { exito ->
         if (exito && fotoUriActual != null) {
-            android.widget.Toast.makeText(this, "📸 Foto del entorno guardada", android.widget.Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "📸 Foto del entorno guardada", Toast.LENGTH_SHORT).show()
         } else {
-            android.widget.Toast.makeText(this, "❌ Se canceló la captura", android.widget.Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "❌ Se canceló la captura", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -151,29 +291,26 @@ class MainActivity : AppCompatActivity() {
             )
             fotoUriActual = uri
             cameraLauncher.launch(uri)
-
-        } catch (e: IllegalArgumentException) {
-            android.widget.Toast.makeText(this, "Error Provider: Revisa que el archivo sea file_paths.xml", android.widget.Toast.LENGTH_LONG).show()
-            e.printStackTrace()
-        } catch (e: android.content.ActivityNotFoundException) {
-            android.widget.Toast.makeText(this, "Error: No se detectó ninguna app de cámara", android.widget.Toast.LENGTH_LONG).show()
-            e.printStackTrace()
         } catch (e: Exception) {
-            android.widget.Toast.makeText(this, "Error inesperado: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error inesperado: ${e.message}", Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
     }
 
-    private fun crearArchivoTemporal(): java.io.File {
+    private fun crearArchivoTemporal(): File {
         val carpeta = getExternalFilesDir("Pictures/ARES")
         if (carpeta != null && !carpeta.exists()) carpeta.mkdirs()
-        val nombre = "ENTORNO_${java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault()).format(java.util.Date())}.jpg"
-        return java.io.File(carpeta, nombre)
+        val nombre = "ENTORNO_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.jpg"
+        return File(carpeta, nombre)
     }
 
+    // ── ANIMACIONES DE DESPLIEGUE DEL FAB REFACTORIZADO ──
     private fun expandFab() {
-        binding.fabCamaraEntorno.visibility = android.view.View.VISIBLE
-        binding.fabMicBitacora.visibility = android.view.View.VISIBLE
+        binding.fabMensaje.visibility = View.VISIBLE
+        binding.fabCamaraEntorno.visibility = View.VISIBLE
+        binding.fabMicBitacora.visibility = View.VISIBLE
+
+        binding.fabMensaje.animate().alpha(1f).setDuration(150).start()
         binding.fabCamaraEntorno.animate().alpha(1f).setDuration(150).start()
         binding.fabMicBitacora.animate().alpha(1f).setDuration(150).start()
         binding.fabMain.animate().rotation(45f).setDuration(150).start()
@@ -181,12 +318,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun collapseFab() {
         fabExpanded = false
+        binding.fabMensaje.animate().alpha(0f).setDuration(150).withEndAction {
+            binding.fabMensaje.visibility = View.INVISIBLE
+        }.start()
         binding.fabCamaraEntorno.animate().alpha(0f).setDuration(150).withEndAction {
-            binding.fabCamaraEntorno.visibility = android.view.View.INVISIBLE
+            binding.fabCamaraEntorno.visibility = View.INVISIBLE
         }.start()
         binding.fabMicBitacora.animate().alpha(0f).setDuration(150).withEndAction {
-            binding.fabMicBitacora.visibility = android.view.View.INVISIBLE
+            binding.fabMicBitacora.visibility = View.INVISIBLE
         }.start()
         binding.fabMain.animate().rotation(0f).setDuration(150).start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(alertaReceiver)
+    }
+
+    // ── RECEPTOR INTERNO PARA PROCESAR EL BOTÓN DE ENTENDIDO DEL BANNER ──
+    inner class AlertaAccionReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val alertaId = intent?.getIntExtra("ALERTA_ID", 0) ?: 0
+
+            // Acción: Al presionar "Entendido", se quita el banner y actualizaremos 'leido = TRUE' en Django
+            Toast.makeText(context, "✅ Alerta #$alertaId Confirmada", Toast.LENGTH_SHORT).show()
+
+            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.cancel(alertaId)
+        }
     }
 }
