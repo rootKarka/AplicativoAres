@@ -29,4 +29,6 @@
     <color name="ares_yellow_repot">#EAB308</color>
     <color name="ares_red">#EF4444</color>
     <color name="ares_counter_bg">#EDF2F7</color>
+
+    <color name="logo_app_color">#000000</color>
 </resources>

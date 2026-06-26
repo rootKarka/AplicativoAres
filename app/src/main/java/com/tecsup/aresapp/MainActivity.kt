@@ -178,6 +178,19 @@ class MainActivity : AppCompatActivity() {
         contadorNotificaciones = 0
         badgeDrawable?.isVisible = false
     }
+    fun ejecutarCierreDeSesion() {
+        Toast.makeText(this, "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show()
+
+        // Creamos el Intent para abrir el Login de nuevo
+        val intent = Intent(this, LoginActivity::class.java)
+
+        // 🔥 IMPORTANTE: Limpiamos el historial de pantallas (Backstack)
+        // Esto evita que si el usuario presiona el botón físico "Atrás" en su cel, regrese al menú
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        startActivity(intent)
+        finish() // Destruye por completo la MainActivity actual
+    }
 
     private fun mostrarHistorialNotificacionesYMensajes() {
         limpiarNotificaciones()

@@ -35,7 +35,7 @@ class Control : Fragment() {
     private var _binding: FragmentControlBinding? = null
     private val binding get() = _binding!!
 
-    private val esp32Ip = "10.229.186.102"
+    private val esp32Ip = "192.168.1.38"
     private val port = 1234
     private var lastSentTime = 0L
     private val sendInterval = 50L
