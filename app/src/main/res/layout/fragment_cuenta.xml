@@ -1,14 +1,648 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CuentaFragment">
+    android:background="@color/ares_bg_dark"
+    android:scrollbars="none"
+    android:overScrollMode="never">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
 
-</FrameLayout>
+        <!-- ══════════════════════════════════
+             SECCIÓN: PERFIL DEL OPERADOR
+        ══════════════════════════════════ -->
+
+        <!-- Label sección -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cuenta_perfil_titulo"
+            android:textColor="@color/ares_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/ares_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/ares_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+
+                <!-- Avatar + nombre + rol -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Avatar círculo -->
+                    <FrameLayout
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginEnd="16dp">
+
+                        <!-- Fondo círculo azul -->
+                        <TextView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/bg_avatar_circle"
+                            android:text=""
+                            android:textSize="0sp"/>
+
+                        <!-- Iniciales -->
+                        <TextView
+                            android:id="@+id/tvAvatarIniciales"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="OP"
+                            android:textColor="@color/ares_card_bg"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+
+                        <!-- Badge online -->
+                        <View
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_badge_online"/>
+                    </FrameLayout>
+
+                    <!-- Info operador -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvNombreOperador"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cuenta_nombre_default"
+                            android:textColor="@color/ares_text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="3dp"/>
+
+                        <TextView
+                            android:id="@+id/tvRolOperador"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cuenta_rol_default"
+                            android:textColor="@color/ares_blue"
+                            android:textSize="11sp"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.08"
+                            android:layout_marginBottom="6dp"/>
+
+                        <!-- Badge estado -->
+                        <TextView
+                            android:id="@+id/tvEstadoOnline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cuenta_estado_online"
+                            android:textColor="@color/ares_green"
+                            android:textSize="10sp"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+
+                    <!-- Botón editar -->
+                    <TextView
+                        android:id="@+id/btnEditarPerfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cuenta_editar"
+                        android:textColor="@color/ares_blue"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:background="@drawable/bg_btn_outline_blue"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/ares_card_stroke"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Correo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_correo_label"
+                        android:textColor="@color/ares_text_secondary"
+                        android:textSize="11sp"
+                        android:fontFamily="monospace"/>
+
+                    <TextView
+                        android:id="@+id/tvCorreoOperador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cuenta_correo_default"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <!-- ID Operador -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_id_label"
+                        android:textColor="@color/ares_text_secondary"
+                        android:textSize="11sp"
+                        android:fontFamily="monospace"/>
+
+                    <TextView
+                        android:id="@+id/tvIdOperador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cuenta_id_default"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════
+             SECCIÓN: MISIÓN ACTIVA
+        ══════════════════════════════════ -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cuenta_mision_activa"
+            android:textColor="@color/ares_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/ares_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/ares_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
+
+                <!-- Nombre misión + badge -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvNombreMision"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/mision_label"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/live"
+                        android:textColor="@color/ares_card_bg"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:background="@drawable/bg_badge_live"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/ares_card_stroke"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Stats misión en grid 2x2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <!-- Duración -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cuenta_duracion"
+                            android:textColor="@color/ares_text_secondary"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="2dp"/>
+                        <TextView
+                            android:id="@+id/tvDuracionMision"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:42:17"
+                            android:textColor="@color/ares_text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+
+                    <!-- Reportes -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cuenta_reportes"
+                            android:textColor="@color/ares_text_secondary"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="2dp"/>
+                        <TextView
+                            android:id="@+id/tvReportesMision"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textColor="@color/ares_blue"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Víctimas -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contador_victimas"
+                            android:textColor="@color/ares_text_secondary"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="2dp"/>
+                        <TextView
+                            android:id="@+id/tvVictimasMision"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/ares_orange"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+
+                    <!-- Batería -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bateria_label"
+                            android:textColor="@color/ares_text_secondary"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="2dp"/>
+                        <TextView
+                            android:id="@+id/tvBateriaMision"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="84%"
+                            android:textColor="@color/ares_green"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════
+             SECCIÓN: CONFIGURACIÓN
+        ══════════════════════════════════ -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cuenta_configuracion"
+            android:textColor="@color/ares_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/ares_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/ares_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Fila: Notificaciones -->
+                <LinearLayout
+                    android:id="@+id/rowNotificaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_notificaciones"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="14sp"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchNotificaciones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_card_stroke" android:layout_marginLeft="16dp"/>
+
+                <!-- Fila: Alertas hápticas -->
+                <LinearLayout
+                    android:id="@+id/rowHapticas"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_alertas_hapticas"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="14sp"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchHapticas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_card_stroke" android:layout_marginLeft="16dp"/>
+
+                <!-- Fila: Modo oscuro -->
+                <LinearLayout
+                    android:id="@+id/rowModoOscuro"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_modo_oscuro"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="14sp"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchModoOscuro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:focusable="false"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════
+             SECCIÓN: SESIÓN
+        ══════════════════════════════════ -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cuenta_sesion"
+            android:textColor="@color/ares_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/ares_card_bg"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/ares_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Fila: Cambiar contraseña -->
+                <LinearLayout
+                    android:id="@+id/rowCambiarPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_cambiar_password"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/ares_text_secondary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_card_stroke" android:layout_marginLeft="16dp"/>
+
+                <!-- Fila: Acerca de -->
+                <LinearLayout
+                    android:id="@+id/rowAcercaDe"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cuenta_acerca_de"
+                        android:textColor="@color/ares_text_primary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cuenta_version"
+                        android:textColor="@color/ares_text_secondary"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════
+             BOTÓN CERRAR SESIÓN
+        ══════════════════════════════════ -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/cuenta_cerrar_sesion"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/ares_red"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            app:backgroundTint="@color/ares_card_bg"
+            app:strokeColor="@color/ares_red"
+            app:strokeWidth="1dp"
+            app:cornerRadius="10dp"/>
+
+    </LinearLayout>
+</ScrollView>
