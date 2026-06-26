@@ -4,335 +4,150 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ares_dark">
+    android:background="#0A0A0A">
 
+    <!-- ══ HEADER ══ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Atrás"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#1F70C1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NUEVO REPORTE"
+            android:textColor="#E8E8E8"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_signal"
+                app:tint="#4CAF50"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/tvHeaderBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="84%"
+                android:textColor="#4CAF50"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/dividerHeader"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2C2F3B"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout" />
+
+    <!-- ══ SCROLL ══ -->
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         android:scrollbars="none"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/dividerHeader">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="24dp">
+            android:padding="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/ares_card"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🦾"
-                        android:textSize="20sp"
-                        android:layout_marginEnd="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvMisionNombre"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="MISIÓN: ARES-01"
-                        android:textColor="@color/ares_orange"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:fontFamily="monospace"
-                        android:letterSpacing="0.08" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="((·))"
-                        android:textColor="@color/ares_grey"
-                        android:textSize="12sp"
-                        android:fontFamily="monospace" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TIPO DE DOCUMENTO"
-                android:textColor="@color/ares_grey"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:layout_marginBottom="8dp" />
-
-            <LinearLayout
-                android:id="@+id/dropdownTipoDoc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_dropdown_field"
-                android:paddingStart="16dp"
-                android:paddingEnd="14dp"
-                android:paddingVertical="14dp"
-                android:layout_marginBottom="14dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <TextView
-                    android:id="@+id/tvTipoDocSeleccionado"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Reporte de Situación"
-                    android:textColor="@color/ares_white"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="▾"
-                    android:textColor="@color/ares_orange"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="@color/ares_card"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="14dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="DATOS AUTOMÁTICOS"
-                            android:textColor="@color/ares_blue"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            android:fontFamily="monospace" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="↻  SINCRONIZADO"
-                            android:textColor="@color/ares_grey"
-                            android:textSize="10sp"
-                            android:fontFamily="monospace" />
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_border" android:layout_marginBottom="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BATERÍA" android:textColor="@color/ares_grey" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:layout_marginBottom="3dp"/>
-                            <TextView android:id="@+id/tvBateria" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="84%" android:textColor="@color/ares_white" android:textSize="26sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                        </LinearLayout>
-
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LATENCIA" android:textColor="@color/ares_grey" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:layout_marginBottom="3dp"/>
-                            <TextView android:id="@+id/tvLatencia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12ms" android:textColor="@color/ares_white" android:textSize="26sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_border" android:layout_marginBottom="12dp"/>
-
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ALERTAS (30M)" android:textColor="@color/ares_grey" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:layout_marginBottom="3dp"/>
-                            <TextView android:id="@+id/tvAlertas" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="02 Críticas" android:textColor="@color/ares_orange" android:textSize="16sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                        </LinearLayout>
-                        <LinearLayout android:id="@+id/miniChart" android:layout_width="wrap_content" android:layout_height="40dp" android:orientation="horizontal" android:gravity="bottom"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ESTADO DE GRAVEDAD"
-                android:textColor="@color/ares_grey"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:layout_marginBottom="8dp" />
-
+            <!-- ══ TABS ══ -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="46dp"
                 android:orientation="horizontal"
-                android:layout_marginBottom="14dp">
-
-                <Button android:id="@+id/btnNormal" android:layout_width="0dp" android:layout_height="46dp" android:layout_weight="1" android:text="NORMAL" android:textColor="@color/ares_grey" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:background="@drawable/bg_btn_gravedad_normal" android:stateListAnimator="@null" android:layout_marginEnd="4dp"/>
-                <Button android:id="@+id/btnPrecaucion" android:layout_width="0dp" android:layout_height="46dp" android:layout_weight="1" android:text="PRECAUCIÓN" android:textColor="@color/ares_grey" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:background="@drawable/bg_btn_gravedad_normal" android:stateListAnimator="@null" android:layout_marginHorizontal="4dp"/>
-                <Button android:id="@+id/btnCritico" android:layout_width="0dp" android:layout_height="46dp" android:layout_weight="1" android:text="CRÍTICO" android:textColor="@color/ares_dark" android:textSize="10sp" android:letterSpacing="0.1" android:fontFamily="monospace" android:textStyle="bold" android:background="@drawable/bg_btn_gravedad_active" android:stateListAnimator="@null" android:layout_marginStart="4dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CONTADOR DE VÍCTIMAS"
-                android:textColor="@color/ares_grey"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:layout_marginBottom="8dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="@color/ares_card"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
+                android:background="#2C2F3B"
+                android:padding="3dp"
+                android:layout_marginBottom="24dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp">
-
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Heridos" android:textColor="@color/ares_white" android:textSize="15sp"/>
-                        <LinearLayout android:layout_width="130dp" android:layout_height="42dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_counter_field">
-                            <Button android:id="@+id/btnHeridosMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="−" android:textSize="20sp" android:textColor="@color/ares_grey" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null"/>
-                            <TextView android:id="@+id/tvHeridosCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="1" android:textColor="@color/ares_orange" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                            <Button android:id="@+id/btnHeridosPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="+" android:textSize="20sp" android:textColor="@color/ares_grey" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/ares_border" android:layout_marginVertical="10dp"/>
-
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Inconscientes" android:textColor="@color/ares_white" android:textSize="15sp"/>
-                        <LinearLayout android:layout_width="130dp" android:layout_height="42dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_counter_field">
-                            <Button android:id="@+id/btnInconscientesMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="−" android:textSize="20sp" android:textColor="@color/ares_grey" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null"/>
-                            <TextView android:id="@+id/tvInconscientesCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="0" android:textColor="@color/ares_grey" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                            <Button android:id="@+id/btnInconscientesPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="+" android:textSize="20sp" android:textColor="@color/ares_grey" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GALERÍA MULTIMEDIA"
-                android:textColor="@color/ares_grey"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:layout_marginBottom="8dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:layout_marginBottom="14dp">
-
-                <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@drawable/bg_cam_preview" android:clipToOutline="true" android:layout_marginEnd="5dp">
-                    <View android:layout_width="match_parent" android:layout_height="match_parent" android:alpha="0.06" android:background="@color/ares_border"/>
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="top|start" android:layout_margin="7dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_live_badge" android:paddingHorizontal="5dp" android:paddingVertical="2dp">
-                        <View android:layout_width="5dp" android:layout_height="5dp" android:background="#FFFFFF" android:layout_marginEnd="3dp"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIVE" android:textColor="#FFFFFF" android:textSize="9sp" android:textStyle="bold" android:fontFamily="monospace"/>
-                    </LinearLayout>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|start" android:layout_margin="7dp" android:text="CÁMARA UGV-01" android:textColor="@color/ares_white" android:textSize="9sp" android:fontFamily="monospace"/>
-                </FrameLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnSubirFoto"
+                    android:id="@+id/tabActualizacion"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:background="@drawable/bg_tab_orange"
                     android:gravity="center"
-                    android:background="@drawable/bg_cam_preview"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginStart="5dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📷" android:textSize="26sp" android:layout_marginBottom="6dp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SUBIR FOTO\nDISPOSITIVO" android:textColor="@color/ares_blue" android:textSize="9sp" android:textStyle="bold" android:fontFamily="monospace" android:gravity="center"/>
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/tvTabActualizacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ ACTUALIZACIÓN"
+                        android:textColor="#E8E8E8"
+                        android:textStyle="bold"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabFinalizar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/tvTabFinalizar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⛳ FINALIZAR MISIÓN"
+                        android:textColor="#6B7280"
+                        android:textStyle="bold"
+                        android:textSize="11sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NOTAS DEL OPERADOR"
-                android:textColor="@color/ares_grey"
-                android:textSize="10sp"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:layout_marginBottom="8dp" />
+            <!-- ══ PANEL A: ACTUALIZACIÓN ══ -->
+            <include
+                android:id="@+id/panelActualizacion"
+                layout="@layout/panel_actualizacion" />
 
-            <EditText
-                android:id="@+id/etNotas"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@drawable/bg_textarea"
-                android:padding="12dp"
-                android:gravity="top"
-                android:hint="Ingrese observaciones tácticas (ej: acceso sur bloqueado)…"
-                android:textColorHint="@color/ares_grey"
-                android:textColor="@color/ares_white"
-                android:textSize="13sp"
-                android:inputType="textMultiLine"
-                android:lines="4"
-                android:maxLines="6"
-                android:scrollbars="vertical"
-                android:layout_marginBottom="18dp" />
-
-            <Button
-                android:id="@+id/btnEnviarBase"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="▶  ENVIAR A BASE"
-                android:textColor="@color/ares_dark"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.12"
-                android:fontFamily="monospace"
-                android:background="@drawable/bg_btn_enviar"
-                android:stateListAnimator="@null" />
+            <!-- ══ PANEL B: FINALIZAR MISIÓN ══ -->
+            <include
+                android:id="@+id/panelFinalizar"
+                layout="@layout/panel_finalizar" />
 
         </LinearLayout>
     </ScrollView>

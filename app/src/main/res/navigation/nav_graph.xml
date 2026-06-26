@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_diagnostico" />
     <fragment
         android:id="@+id/nav_reporte"
-        android:name="com.tecsup.aresapp.Reporte"
+        android:name="com.tecsup.aresapp.ReporteFragment"
         android:label="fragment_reporte"
         tools:layout="@layout/fragment_reporte" />
     <fragment

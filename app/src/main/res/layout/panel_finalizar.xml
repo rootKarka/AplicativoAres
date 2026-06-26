@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutContenidoFinalizar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <!-- Datos automáticos label -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DATOS AUTOMÁTICOS"
+            android:textColor="#1F70C1"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <View android:layout_width="7dp" android:layout_height="7dp"
+                android:background="@drawable/bg_dot_active" android:layout_marginEnd="5dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="SINCRONIZADO" android:textColor="#4CAF50"
+                android:textSize="10sp" android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Card datos automáticos -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_severity_card"
+        android:padding="18dp"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginBottom="16dp">
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="BATERÍA INICIO" android:textColor="#6B7280"
+                    android:textSize="10sp" android:fontFamily="monospace" />
+                <TextView android:id="@+id/tvMisionBateria" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="84%"
+                    android:textColor="#E8E8E8" android:textSize="28sp"
+                    android:textStyle="bold" android:fontFamily="monospace" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="LATENCIA" android:textColor="#6B7280"
+                    android:textSize="10sp" android:fontFamily="monospace" />
+                <TextView android:id="@+id/tvMisionLatencia" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="-- ms"
+                    android:textColor="#E8E8E8" android:textSize="28sp"
+                    android:textStyle="bold" android:fontFamily="monospace" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#2C2F3B" android:layout_marginBottom="16dp" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="DURACIÓN MISIÓN" android:textColor="#6B7280"
+                    android:textSize="10sp" android:fontFamily="monospace" />
+                <TextView android:id="@+id/tvDuracionMision" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="0 min"
+                    android:textColor="#1F70C1" android:textSize="22sp"
+                    android:textStyle="bold" android:fontFamily="monospace" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="ALERTAS (30 MIN)" android:textColor="#6B7280"
+                    android:textSize="10sp" android:fontFamily="monospace" />
+                <TextView android:id="@+id/tvMisionAlertas" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="-- Críticas"
+                    android:textColor="#F44336" android:textSize="22sp"
+                    android:textStyle="bold" android:fontFamily="monospace" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Estado de gravedad -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ESTADO DE GRAVEDAD"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+
+        <Button android:id="@+id/btnNormal"
+            android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:backgroundTint="#2C2F3B" android:text="NORMAL"
+            android:textColor="#6B7280" android:textSize="10sp" android:textStyle="bold"
+            android:layout_marginEnd="6dp" android:stateListAnimator="@null" />
+
+        <Button android:id="@+id/btnPrecaucion"
+            android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:backgroundTint="#2C2F3B" android:text="PRECAUCIÓN"
+            android:textColor="#6B7280" android:textSize="10sp" android:textStyle="bold"
+            android:layout_marginStart="6dp" android:layout_marginEnd="6dp" android:stateListAnimator="@null" />
+
+        <Button android:id="@+id/btnCritico"
+            android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+            android:backgroundTint="#1F70C1" android:text="CRÍTICO"
+            android:textColor="#E8E8E8" android:textSize="10sp" android:textStyle="bold"
+            android:layout_marginStart="6dp" android:stateListAnimator="@null" />
+    </LinearLayout>
+
+    <!-- Contador víctimas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONTADOR DE VÍCTIMAS"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_severity_card"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp">
+
+        <!-- Heridas -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="🩹  Heridas" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnHeridosMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvHeridosCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#1F70C1" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnHeridosPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2C2F3B" android:layout_marginVertical="10dp" />
+
+        <!-- Fallecidas -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="💀  Fallecidas" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnFallecidasMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvFallecidasCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#F44336" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnFallecidasPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2C2F3B" android:layout_marginVertical="10dp" />
+
+        <!-- Rescatadas -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="🚑  Rescatadas" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnRescatadasMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvRescatadasCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#4CAF50" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnRescatadasPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#2C2F3B" android:layout_marginVertical="10dp" />
+
+        <!-- Sin confirmar -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="❓  Sin confirmar" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnSinConfirmarMinus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvSinConfirmarCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#6B7280" android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnSinConfirmarPlus" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280" android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Bitácora -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BITÁCORA DE EVENTOS"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:id="@+id/contenedorBitacora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_severity_card"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Evidencia fotográfica -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EVIDENCIA FOTOGRÁFICA"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:id="@+id/btnSubirFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="140dp"
+        android:background="@drawable/bg_input_field"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="📷" android:textSize="36sp" android:layout_marginBottom="10dp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="SUBIR FOTO FINAL DE LA ESCENA"
+            android:textColor="#1F70C1" android:textSize="12sp" android:textStyle="bold"
+            android:gravity="center" android:layout_marginBottom="6dp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Formatos: RAW · JPG · PNG  (máx 15 MB)"
+            android:textColor="#6B7280" android:textSize="11sp" android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Notas del operador -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTAS DEL OPERADOR"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:id="@+id/etNotasOperador"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_input_field"
+        android:gravity="top"
+        android:padding="14dp"
+        android:hint="Ingrese observaciones tácticas (ej: acceso sur bloqueado)..."
+        android:textColorHint="#6B7280"
+        android:textColor="#E8E8E8"
+        android:textSize="13sp"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnEnviarBase"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#1F70C1"
+        android:text="▶  ENVIAR A BASE"
+        android:textColor="#E8E8E8"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:stateListAnimator="@null" />
+
+</LinearLayout>

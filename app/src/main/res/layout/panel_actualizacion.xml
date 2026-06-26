@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutContenidoActualizacion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <!-- Telemetría label -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TELEMETRÍA AUTOMATIZADA"
+            android:textColor="#1F70C1"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_dot_active" />
+    </LinearLayout>
+
+    <!-- Card telemetría -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_card_telemetry"
+        android:layout_marginBottom="24dp">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="#1F70C1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="14:35"
+                    android:textColor="#E8E8E8"
+                    android:textSize="52sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HRS"
+                    android:textColor="#6B7280"
+                    android:textSize="14sp"
+                    android:fontFamily="monospace"
+                    android:layout_marginTop="20dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2C2F3B"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Chips GAS + TEMP -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill_grey"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚗"
+                        android:textSize="18sp"
+                        android:textColor="#1F70C1"
+                        android:layout_marginEnd="10dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GAS (GNV)"
+                            android:textColor="#6B7280"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace" />
+                        <TextView
+                            android:id="@+id/tvGas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.0 PPM"
+                            android:textColor="#E8E8E8"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill_grey"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌡"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TEMPERATURA"
+                            android:textColor="#6B7280"
+                            android:textSize="9sp"
+                            android:fontFamily="monospace" />
+                        <TextView
+                            android:id="@+id/tvTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="24.5 °C"
+                            android:textColor="#E8E8E8"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Gravedad -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NIVEL DE GRAVEDAD OPERATIVA"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:id="@+id/btnGravedadNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_severity_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginEnd="6dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓"
+                android:textSize="24sp"
+                android:textColor="#4CAF50"
+                android:layout_marginBottom="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NORMAL"
+                android:textColor="#6B7280"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnGravedadPrecaucion"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_severity_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚠"
+                android:textSize="24sp"
+                android:textColor="#FFC107"
+                android:layout_marginBottom="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRECAUCIÓN"
+                android:textColor="#6B7280"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnGravedadCritico"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_severity_card_critical"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="6dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="!" android:textSize="24sp" android:textColor="#F44336"
+                android:textStyle="bold" android:layout_marginBottom="6dp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CRÍTICO" android:textColor="#6B7280" android:textSize="10sp" android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Notas rápidas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTAS RÁPIDAS DE CAMPO"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:id="@+id/etNotasActualizacion"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_input_field"
+        android:gravity="top"
+        android:padding="14dp"
+        android:hint="¿QUÉ ESTÁ PASANDO? (OPCIONAL)"
+        android:textColorHint="#6B7280"
+        android:textColor="#E8E8E8"
+        android:textSize="13sp"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Acción recomendada -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACCIÓN RECOMENDADA"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:id="@+id/etAccionRecomendada"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/bg_input_field"
+        android:gravity="top"
+        android:padding="14dp"
+        android:hint="Ej: Evacuar sector norte, reforzar equipo..."
+        android:textColorHint="#6B7280"
+        android:textColor="#E8E8E8"
+        android:textSize="13sp"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Víctimas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VÍCTIMAS REGISTRADAS"
+        android:textColor="#1F70C1"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_severity_card"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🩹  Heridas"
+                android:textColor="#E8E8E8"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_pill_grey">
+
+                <Button
+                    android:id="@+id/btnActHeridosMinus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="−"
+                    android:textSize="20sp"
+                    android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground"
+                    android:stateListAnimator="@null" />
+
+                <TextView
+                    android:id="@+id/tvActHeridosCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#1F70C1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <Button
+                    android:id="@+id/btnActHeridosPlus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground"
+                    android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2C2F3B"
+            android:layout_marginVertical="10dp" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="💀  Fallecidas" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnActFallecidasMinus" android:layout_width="0dp"
+                    android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvActFallecidasCount" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#F44336"
+                    android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnActFallecidasPlus" android:layout_width="0dp"
+                    android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#2C2F3B" android:layout_marginVertical="10dp" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="🚑  Rescatadas" android:textColor="#E8E8E8" android:textSize="14sp" />
+            <LinearLayout android:layout_width="130dp" android:layout_height="44dp"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_pill_grey">
+                <Button android:id="@+id/btnActRescatadasMinus" android:layout_width="0dp"
+                    android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="−" android:textSize="20sp" android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+                <TextView android:id="@+id/tvActRescatadasCount" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:gravity="center" android:text="0" android:textColor="#4CAF50"
+                    android:textSize="18sp" android:textStyle="bold" android:fontFamily="monospace" />
+                <Button android:id="@+id/btnActRescatadasPlus" android:layout_width="0dp"
+                    android:layout_height="match_parent" android:layout_weight="1"
+                    android:text="+" android:textSize="20sp" android:textColor="#6B7280"
+                    android:background="?attr/selectableItemBackground" android:stateListAnimator="@null" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnEnviarActualizacion"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#1F70C1"
+        android:text="▶  ENVIAR ACTUALIZACIÓN"
+        android:textColor="#E8E8E8"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:stateListAnimator="@null" />
+
+</LinearLayout>
