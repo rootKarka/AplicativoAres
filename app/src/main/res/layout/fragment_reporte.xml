@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0A0A">
+    android:background="@color/ares_black">
 
     <!-- ══ HEADER ══ -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_height="24dp"
             android:contentDescription="Atrás"
             android:src="@drawable/ic_arrow_back"
-            app:tint="#1F70C1"
+            app:tint="@color/ares_blue_report"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NUEVO REPORTE"
-            android:textColor="#E8E8E8"
+            android:textColor="@color/ares_white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:letterSpacing="0.05"
@@ -53,7 +53,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_signal"
-                app:tint="#4CAF50"
+                app:tint="@color/ares_green"
                 android:layout_marginEnd="4dp" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="84%"
-                android:textColor="#4CAF50"
+                android:textColor="@color/ares_green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -72,7 +72,7 @@
         android:id="@+id/dividerHeader"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2C2F3B"
+        android:background="@color/ares_border"
         app:layout_constraintTop_toBottomOf="@id/headerLayout" />
 
     <!-- ══ SCROLL ══ -->
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:orientation="horizontal"
-                android:background="#2C2F3B"
+                android:background="@color/ares_border"
                 android:padding="3dp"
                 android:layout_marginBottom="24dp">
 
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="⚡ ACTUALIZACIÓN"
-                        android:textColor="#E8E8E8"
+                        android:textColor="@color/ares_black"
                         android:textStyle="bold"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -133,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="⛳ FINALIZAR MISIÓN"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/ares_grey"
                         android:textStyle="bold"
                         android:textSize="11sp" />
                 </LinearLayout>
