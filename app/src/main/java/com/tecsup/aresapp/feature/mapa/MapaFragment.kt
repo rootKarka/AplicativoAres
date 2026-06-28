@@ -1,4 +1,4 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.mapa
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.card.MaterialCardView
+import com.tecsup.aresapp.R
 
 class MapaFragment : Fragment(), OnMapReadyCallback {
 
@@ -51,7 +52,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
         val posicionRobot = LatLng(latitudRobotFisico, longitudRobotFisico)
 
-        mMap.addMarker(MarkerOptions()
+        mMap.addMarker(
+            MarkerOptions()
             .position(posicionRobot)
             .title("ARES-01")
             .snippet("Última ubicación conocida"))

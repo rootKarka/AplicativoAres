@@ -1,13 +1,16 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.ui.components
 
 import android.Manifest
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -15,6 +18,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
+import com.tecsup.aresapp.R
 import java.util.Locale
 
 class BitacoraDialog : DialogFragment() {
@@ -36,7 +40,7 @@ class BitacoraDialog : DialogFragment() {
     private val speechRecognizerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
+        if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             val resultados = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             val textoReconocido = resultados?.firstOrNull()
@@ -54,13 +58,13 @@ class BitacoraDialog : DialogFragment() {
 
         val btnTexto = view.findViewById<MaterialCardView>(R.id.btn_bitacora_texto)
         val btnAudio = view.findViewById<MaterialCardView>(R.id.btn_bitacora_audio)
-        val contenedorTexto = view.findViewById<android.widget.LinearLayout>(R.id.contenedor_texto)
+        val contenedorTexto = view.findViewById<LinearLayout>(R.id.contenedor_texto)
         val etNotaTexto = view.findViewById<TextInputEditText>(R.id.et_nota_texto)
         val btnGuardarTexto = view.findViewById<MaterialButton>(R.id.btn_guardar_texto)
 
         // Opción "Escribir nota": muestra el campo de texto
         btnTexto.setOnClickListener {
-            contenedorTexto.visibility = android.view.View.VISIBLE
+            contenedorTexto.visibility = View.VISIBLE
         }
 
         // Opción "Grabar nota de voz": Primero verifica el permiso

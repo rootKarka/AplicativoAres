@@ -1,4 +1,4 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.cuenta
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.button.MaterialButton
+import com.tecsup.aresapp.ui.MainActivity
+import com.tecsup.aresapp.R
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -35,7 +38,7 @@ class CuentaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 1. Encontramos el MaterialButton usando el ID de tu fragment_cuenta.xml
-        val btnCerrarSesion = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCerrarSesion)
+        val btnCerrarSesion = view.findViewById<MaterialButton>(R.id.btnCerrarSesion)
 
         // 2. Le asignamos la acción al hacer clic
         btnCerrarSesion?.setOnClickListener {

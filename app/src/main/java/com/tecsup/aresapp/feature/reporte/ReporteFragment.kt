@@ -1,4 +1,4 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.reporte
 
 import android.app.Activity
 import android.content.Context
@@ -20,6 +20,16 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.tecsup.aresapp.R
+import com.tecsup.aresapp.data.BitacoraDto
+import com.tecsup.aresapp.data.BitacoraRequest
+import com.tecsup.aresapp.data.EvidenciaDto
+import com.tecsup.aresapp.data.ReporteActualizacionDto
+import com.tecsup.aresapp.data.ReporteActualizacionRequest
+import com.tecsup.aresapp.data.ReporteFinalDto
+import com.tecsup.aresapp.data.ReporteFinalRequest
+import com.tecsup.aresapp.data.ResumenMisionDto
+import com.tecsup.aresapp.data.RetrofitClient
 import com.tecsup.aresapp.databinding.FragmentReporteBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

@@ -1,13 +1,9 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.control
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -17,6 +13,8 @@ import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.tecsup.aresapp.feature.mapa.MapaFragment
+import com.tecsup.aresapp.R
 import com.tecsup.aresapp.databinding.FragmentControlBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -24,6 +22,7 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -150,7 +149,9 @@ class Control : Fragment() {
             val carpeta = requireContext().getExternalFilesDir("Pictures/ARES")
             if (carpeta != null && !carpeta.exists()) carpeta.mkdirs()
 
-            val nombreArchivo = "ARES_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(java.util.Date())}.jpg"
+            val nombreArchivo = "ARES_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(
+                Date()
+            )}.jpg"
             val archivo = File(carpeta, nombreArchivo)
 
             FileOutputStream(archivo).use { out ->
