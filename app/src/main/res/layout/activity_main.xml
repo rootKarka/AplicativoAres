@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.MainActivity">
 
-    <!-- Fragment que  cambiara segun se le indique - Seccion  B-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -25,12 +25,8 @@
         app:menu="@menu/menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        >
+        app:layout_constraintRight_toRightOf="parent" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <!-- Encabezado - Seccion C-->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -39,11 +35,65 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/app_name"
-        app:menu="@menu/top_bar_menu" />
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            app:menu="@menu/top_bar_menu" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_mensaje"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="204dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_message"
+        app:fabSize="mini"
+        app:backgroundTint="@color/ares_card_bg"
+        app:tint="@color/ares_green"
+        app:layout_constraintBottom_toTopOf="@id/menu_nav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_camara_entorno"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="144dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_camara"
+        app:fabSize="mini"
+        app:backgroundTint="@color/ares_card_bg"
+        app:tint="@color/ares_orange"
+        app:layout_constraintBottom_toTopOf="@id/menu_nav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_mic_bitacora"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_mic"
+        app:fabSize="mini"
+        app:backgroundTint="@color/ares_card_bg"
+        app:tint="@color/ares_blue"
+        app:layout_constraintBottom_toTopOf="@id/menu_nav"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_main"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/ares_blue"
+        app:tint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@id/menu_nav"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
