@@ -1,17 +1,18 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     // Si usas el emulador de Android, '10.0.2.2' apunta al localhost de tu PC
-    private const val BASE_URL = "http://10.0.2.2:8000/"
+    // En el futuro, mover esto a un archivo de configuración (BuildConfig)
+    private const val BASE_URL = "http://10.147.188.78:8000/"
 
     val instance: ApiService by lazy {
-        val retrofit = Retrofit.Builder()
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        retrofit.create(ApiService::class.java)
+            .create(ApiService::class.java)
     }
 }

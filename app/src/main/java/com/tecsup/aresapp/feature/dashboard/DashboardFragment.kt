@@ -1,4 +1,4 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.dashboard
 
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +12,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.tecsup.aresapp.R
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import org.json.JSONObject
@@ -71,7 +72,7 @@ class DashboardFragment : Fragment() {
             return
         }
 
-        client = object : WebSocketClient(URI("ws://192.168.1.34:8000/ws/sensores/")) {
+        client = object : WebSocketClient(URI("ws://10.147.188.78:8000/ws/sensores/")) {
             override fun onOpen(handshakedata: ServerHandshake?) {
                 Log.d("WS", "WebSocket conectado exitosamente")
             }

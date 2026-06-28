@@ -32,7 +32,7 @@
         android:theme="@style/Theme.AresApp">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".feature.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
 
         <meta-data

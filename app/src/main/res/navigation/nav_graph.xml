@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/nav_dashboard"
-        android:name="com.tecsup.aresapp.DashboardFragment"
+        android:name="com.tecsup.aresapp.feature.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/nav_control"
-        android:name="com.tecsup.aresapp.Control"
+        android:name="com.tecsup.aresapp.feature.control.Control"
         android:label="fragment_control"
         tools:layout="@layout/fragment_control" />
     <fragment
         android:id="@+id/nav_diagnostico"
-        android:name="com.tecsup.aresapp.Diagnostico"
+        android:name="com.tecsup.aresapp.feature.diagnostico.Diagnostico"
         android:label="fragment_diagnostico"
         tools:layout="@layout/fragment_diagnostico" />
     <fragment
         android:id="@+id/nav_reporte"
-        android:name="com.tecsup.aresapp.Reporte"
+        android:name="com.tecsup.aresapp.feature.reporte.Reporte"
         android:label="fragment_reporte"
         tools:layout="@layout/fragment_reporte" />
     <fragment
         android:id="@+id/nav_cuenta"
-        android:name="com.tecsup.aresapp.CuentaFragment"
+        android:name="com.tecsup.aresapp.feature.cuenta.CuentaFragment"
         android:label="fragment_cuenta"
         tools:layout="@layout/fragment_cuenta" />
 

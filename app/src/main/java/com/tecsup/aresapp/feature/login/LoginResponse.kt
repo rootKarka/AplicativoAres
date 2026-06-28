@@ -1,4 +1,4 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.feature.login
 
 data class LoginResponse(
     val status: String,

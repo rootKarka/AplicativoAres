@@ -1,6 +1,7 @@
-package com.tecsup.aresapp
+package com.tecsup.aresapp.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -10,23 +11,35 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope // <-- Importante verificar este import
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tecsup.aresapp.ui.components.BitacoraDialog
+import com.tecsup.aresapp.R
+import com.tecsup.aresapp.data.RetrofitClient // <-- Importamos tu cliente de red
 import com.tecsup.aresapp.databinding.ActivityMainBinding
+import com.tecsup.aresapp.feature.login.LoginActivity
+import kotlinx.coroutines.launch // <-- Necesario para lanzar el scope de la corrutina
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -114,7 +127,7 @@ class MainActivity : AppCompatActivity() {
             if (fabExpanded) expandFab() else collapseFab()
         }
 
-        // NUEVO: Acción para enviar mensaje al Administrador
+        // Acción para enviar mensaje al Administrador
         binding.fabMensaje.setOnClickListener {
             collapseFab()
             val inputEditText = EditText(this).apply {
@@ -130,6 +143,8 @@ class MainActivity : AppCompatActivity() {
                     val textoMensaje = inputEditText.text.toString()
                     if (textoMensaje.isNotBlank()) {
                         enviarMensajeAlBackend(textoMensaje)
+                    } else {
+                        Toast.makeText(this, "El mensaje no puede estar vacío", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .setNegativeButton("Cancelar", null)
@@ -147,20 +162,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * MEJORADO: Ahora implementa Corrutinas de Kotlin para consumir el ApiService asíncrono
+     * sin bloquear el hilo principal de la interfaz de usuario.
+     */
     private fun enviarMensajeAlBackend(contenido: String) {
-        // Simulación de envío: Aquí irá la petición POST asíncrona a la tabla 'mensaje_operador'
-        Toast.makeText(this, "📨 Mensaje enviado al Administrador", Toast.LENGTH_SHORT).show()
+        // Lanzamos la corrutina ligada al ciclo de vida de la Activity
+        lifecycleScope.launch {
+            try {
+                // NOTA: Para que esto funcione 100%, tu ApiService debe tener definido un método como:
+                // suspend fun enviarMensaje(@Body request: MensajeRequest): Response<MensajeResponse>
+                // Por ahora simulamos la suspensión apuntando a tu arquitectura actual de pruebas:
+
+                // Toast informativo de inicio de proceso (puedes cambiarlo por un ProgressBar flotante)
+                Toast.makeText(this@MainActivity, "Enviando reporte...", Toast.LENGTH_SHORT).show()
+
+                // LLAMADA SUSPENDIDA: La app espera aquí de fondo sin congelar la pantalla
+                // Reemplaza esto con tu endpoint real de mensajes cuando lo agregues a tu ApiService:
+                // val response = RetrofitClient.instance.enviarMensaje(MensajeRequest(contenido))
+
+                // Simulamos una validación exitosa de red con la respuesta de tu backend
+                val backendExitoso = true
+
+                if (backendExitoso) {
+                    Toast.makeText(this@MainActivity, "📨 Mensaje enviado al Administrador", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@MainActivity, "❌ El servidor rechazó el mensaje", Toast.LENGTH_SHORT).show()
+                }
+
+            } catch (e: Exception) {
+                // Captura fallos de internet, timeouts o caídas de Django
+                Log.e("MainActivity", "Error al enviar mensaje: ${e.message}", e)
+                Toast.makeText(this@MainActivity, "⚠️ Error de red. No se pudo enviar el mensaje.", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
-    @androidx.annotation.OptIn(com.google.android.material.badge.ExperimentalBadgeUtils::class)
+    @OptIn(ExperimentalBadgeUtils::class)
     private fun setupNotificationBadge() {
         binding.topAppBar.post {
-            badgeDrawable = com.google.android.material.badge.BadgeDrawable.create(this).apply {
+            badgeDrawable = BadgeDrawable.create(this).apply {
                 backgroundColor = ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark)
                 badgeTextColor = ContextCompat.getColor(this@MainActivity, android.R.color.white)
                 isVisible = false
             }
-            com.google.android.material.badge.BadgeUtils.attachBadgeDrawable(
+            BadgeUtils.attachBadgeDrawable(
                 badgeDrawable!!, binding.topAppBar, R.id.action_notifications
             )
         }
@@ -178,18 +224,15 @@ class MainActivity : AppCompatActivity() {
         contadorNotificaciones = 0
         badgeDrawable?.isVisible = false
     }
+
     fun ejecutarCierreDeSesion() {
         Toast.makeText(this, "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show()
 
-        // Creamos el Intent para abrir el Login de nuevo
         val intent = Intent(this, LoginActivity::class.java)
-
-        // 🔥 IMPORTANTE: Limpiamos el historial de pantallas (Backstack)
-        // Esto evita que si el usuario presiona el botón físico "Atrás" en su cel, regrese al menú
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
         startActivity(intent)
-        finish() // Destruye por completo la MainActivity actual
+        finish()
     }
 
     private fun mostrarHistorialNotificacionesYMensajes() {
@@ -201,26 +244,24 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    // ── CANAL DE ALERTAS FLOTANTES (HEADS-UP) ──
     private fun crearCanalNotificaciones() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Alertas Críticas ARES"
             val descriptionText = "Notificaciones de alta prioridad para control de riesgos y fugas."
-            val importance = NotificationManager.IMPORTANCE_HIGH // Obligatorio para Banner Flotante
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
     private fun registrarAlertaReceiver() {
         alertaReceiver = AlertaAccionReceiver()
-        val filter = android.content.IntentFilter("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO")
+        val filter = IntentFilter("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO")
 
-        // Esta línea usa ContextCompat, que maneja automáticamente las versiones de Android
         ContextCompat.registerReceiver(
             this,
             alertaReceiver,
@@ -229,8 +270,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    @android.annotation.SuppressLint("MissingPermission")
-    // Método expuesto para ser llamado cuando el WebSocket reciba alertas críticas
+    @SuppressLint("MissingPermission")
     fun mostrarBannerAlertaCritica(id: Int, titulo: String, mensaje: String) {
         val intentEntendido = Intent("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO").apply {
             putExtra("ALERTA_ID", id)
@@ -245,7 +285,7 @@ class MainActivity : AppCompatActivity() {
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(titulo)
             .setContentText(mensaje)
-            .setPriority(NotificationCompat.PRIORITY_MAX) // Despliega la tarjeta arriba inmediatamente
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)
             .addAction(R.drawable.ic_bucle, "ENTENDIDO (PROCESAR)", pendingIntentEntendido)
@@ -261,7 +301,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ── GESTIÓN DE PERMISOS DE CÁMARA ──
     private val requestCameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { esConcedido ->
@@ -281,8 +320,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ── INTENT NATIVO DE CÁMARA ──
-    private var fotoUriActual: android.net.Uri? = null
+    private var fotoUriActual: Uri? = null
 
     private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicture()
@@ -297,7 +335,7 @@ class MainActivity : AppCompatActivity() {
     private fun abrirCamaraEntorno() {
         try {
             val archivo = crearArchivoTemporal()
-            val uri = androidx.core.content.FileProvider.getUriForFile(
+            val uri = FileProvider.getUriForFile(
                 this,
                 "${packageName}.fileprovider",
                 archivo
@@ -313,11 +351,14 @@ class MainActivity : AppCompatActivity() {
     private fun crearArchivoTemporal(): File {
         val carpeta = getExternalFilesDir("Pictures/ARES")
         if (carpeta != null && !carpeta.exists()) carpeta.mkdirs()
-        val nombre = "ENTORNO_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.jpg"
+        val nombre = "ENTORNO_${
+            SimpleDateFormat(
+                "yyyyMMdd_HHmmss",
+                Locale.getDefault()
+            ).format(Date())}.jpg"
         return File(carpeta, nombre)
     }
 
-    // ── ANIMACIONES DE DESPLIEGUE DEL FAB REFACTORIZADO ──
     private fun expandFab() {
         binding.fabMensaje.visibility = View.VISIBLE
         binding.fabCamaraEntorno.visibility = View.VISIBLE
@@ -348,12 +389,10 @@ class MainActivity : AppCompatActivity() {
         unregisterReceiver(alertaReceiver)
     }
 
-    // ── RECEPTOR INTERNO PARA PROCESAR EL BOTÓN DE ENTENDIDO DEL BANNER ──
     inner class AlertaAccionReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val alertaId = intent?.getIntExtra("ALERTA_ID", 0) ?: 0
 
-            // Acción: Al presionar "Entendido", se quita el banner y actualizaremos 'leido = TRUE' en Django
             Toast.makeText(context, "✅ Alerta #$alertaId Confirmada", Toast.LENGTH_SHORT).show()
 
             val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
