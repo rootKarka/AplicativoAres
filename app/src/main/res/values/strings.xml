@@ -42,6 +42,31 @@
     <string name="nav_reporte">REPORTE</string>
     <string name="nav_sistema">SISTEMA</string>
 
+    <!-- Cuenta Fragment -->
+    <string name="cuenta_perfil_titulo">PERFIL DEL OPERADOR</string>
+    <string name="cuenta_nombre_default">Delta-1 Operador</string>
+    <string name="cuenta_rol_default">// OPERADOR TÁCTICO</string>
+    <string name="cuenta_estado_online">● EN LÍNEA</string>
+    <string name="cuenta_editar">EDITAR</string>
+    <string name="cuenta_correo_label">CORREO</string>
+    <string name="cuenta_correo_default">delta1@tecsup.edu.pe</string>
+    <string name="cuenta_id_label">ID OPERADOR</string>
+    <string name="cuenta_id_default">OP-20251047</string>
+    <string name="cuenta_mision_activa">MISIÓN ACTIVA</string>
+    <string name="cuenta_duracion">DURACIÓN</string>
+    <string name="cuenta_reportes">REPORTES</string>
+    <string name="cuenta_configuracion">CONFIGURACIÓN</string>
+    <string name="cuenta_notificaciones">Notificaciones</string>
+    <string name="cuenta_alertas_hapticas">Alertas Hápticas</string>
+    <string name="cuenta_modo_oscuro">Modo Oscuro</string>
+    <string name="cuenta_sesion">SESIÓN</string>
+    <string name="cuenta_cambiar_password">Cambiar Contraseña</string>
+    <string name="cuenta_acerca_de">Acerca de</string>
+    <string name="cuenta_version">v1.0.0</string>
+    <string name="cuenta_cerrar_sesion">⏻  CERRAR SESIÓN</string>
+
+    <string name="login_footer">ARES - Sistema de Rescate</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

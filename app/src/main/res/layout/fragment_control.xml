@@ -7,7 +7,7 @@
     android:background="@color/ares_bg_dark"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Control">
+    tools:context=".feature.control.Control">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,50 +45,61 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="#0D1420"
+        app:cardBackgroundColor="@color/ares_control_card_camera"
         app:cardCornerRadius="8dp"
         app:strokeColor="@color/ares_blue"
         app:strokeWidth="1dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_live"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="● LIVE"
-                android:textColor="@color/ares_green"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+            <WebView
+                android:id="@+id/webview_stream"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_toEndOf="@id/tv_live"
-                android:text="24ms"
-                android:textColor="@color/ares_text_secondary"
-                android:textSize="12sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="● REC"
-                android:textColor="@color/ares_orange"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_live"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="● LIVE"
+                    android:textColor="@color/ares_green"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:text="CAM FRONTAL\n1920x1080 - 30fps"
-                android:textColor="@color/ares_blue"
-                android:textSize="10sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_toEndOf="@id/tv_live"
+                    android:text="24ms"
+                    android:textColor="@color/ares_text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="● REC"
+                    android:textColor="@color/ares_orange"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_camera_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="CAM FRONTAL\n1920x1080 - 30fps"
+                    android:textColor="@color/ares_blue"
+                    android:textSize="10sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -100,30 +111,29 @@
         android:orientation="horizontal">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_camara"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="6dp"
             app:cardBackgroundColor="@color/ares_card_bg"
             app:cardCornerRadius="24dp"
             app:strokeColor="@color/ares_blue"
             app:strokeWidth="1dp">
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_camara"
                 app:tint="@color/ares_blue" />
-
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_video"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="6dp"
             app:cardBackgroundColor="@color/ares_card_bg"
             app:cardCornerRadius="24dp">
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -133,12 +143,12 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_mic"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="6dp"
             app:cardBackgroundColor="@color/ares_card_bg"
             app:cardCornerRadius="24dp">
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -148,18 +158,35 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_switch"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="6dp"
             app:cardBackgroundColor="@color/ares_card_bg"
             app:cardCornerRadius="24dp">
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_bucle"
                 app:tint="@color/ares_text_primary" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_mapa"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="6dp"
+            app:cardBackgroundColor="@color/ares_card_bg"
+            app:cardCornerRadius="24dp"
+            app:strokeColor="@color/ares_orange"
+            app:strokeWidth="1dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_mapa"
+                app:tint="@color/ares_orange" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
@@ -179,15 +206,17 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/circle_dark" /> <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="000°\nRUMBO"
-            android:textAlignment="center"
-            android:textColor="@color/ares_blue"
+                android:background="@drawable/circle_dark"
+                android:backgroundTint="@color/ares_surface" />
 
-            android:textSize="10sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="000°\nRUMBO"
+                android:textAlignment="center"
+                android:textColor="@color/ares_blue"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,6 +230,7 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:background="@drawable/circle_dark"
+                android:backgroundTint="@color/ares_surface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +245,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -241,12 +270,13 @@
                 android:background="@color/ares_card_stroke" />
 
             <TextView
+                android:id="@+id/tv_mode_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MAN"
+                android:text="MOTOR"
                 android:textColor="@color/ares_blue"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
