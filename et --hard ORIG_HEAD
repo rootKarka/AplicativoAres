@@ -1,0 +1,18 @@
+*   [33m5465eb2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #1 from rootKarka/feature/control-dashboard-login
+[31m|[m[32m\[m  
+[31m|[m * [33m4383c7c[m[33m ([m[1;31morigin/feature/control-dashboard-login[m[33m, [m[1;32mfeature/control-dashboard-login[m[33m)[m Correción de errores
+[31m|[m [32m|[m * [33mfc40dcc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdiagnostico_ares[m[33m, [m[1;31morigin/feature/diagnostico_ares[m[33m)[m Implementación de la vista XML del diagnóstico y su DiagnosticoFragment
+[31m|[m [32m|[m[31m/[m  
+[31m|[m[31m/[m[32m|[m   
+[31m|[m [32m|[m * [33m7248eb4[m[33m ([m[1;31morigin/feature/Historial[m[33m)[m Agregacion de la logica para el envio de reportes a la DB
+[31m|[m [32m|[m *   [33mf587622[m merge: integrar cambios de feature/control-dashboard-login
+[31m|[m [32m|[m [35m|[m[32m\[m  
+[31m|[m [32m|[m [35m|[m[32m/[m  
+[31m|[m [32m|[m[32m/[m[35m|[m   
+[31m|[m * [35m|[m [33m87d2f1d[m Integracion Kotlin con DJango para permitir Logeo
+[31m|[m * [35m|[m [33mcf2dbb4[m mensaje y icono de notificacion integrado
+[31m|[m * [35m|[m [33mc7cb8a2[m Modifique Control, Dashboard y añadi boton flotante con camara y microfono, tambien vista de loguin, aun falta probar si funciona
+[31m|[m[31m/[m [35m/[m  
+[31m|[m * [33m7c5358d[m Se implemneto las pantallas para la parte del historial
+[31m|[m[31m/[m  
+* [33me1f8914[m[33m ([m[1;31morigin/developer[m[33m, [m[1;32mmain[m[33m, [m[1;32mdeveloper[m[33m)[m Primer commit
