@@ -13,7 +13,7 @@ import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.tecsup.aresapp.feature.mapa.MapaFragment
+import com.tecsup.aresapp.maps.MapaFragment
 import com.tecsup.aresapp.R
 import com.tecsup.aresapp.databinding.FragmentControlBinding
 import java.io.File

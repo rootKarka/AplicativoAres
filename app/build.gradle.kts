@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -52,13 +53,19 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:${nav_version}")
 
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     // Nuevo: para manejar resultados de cámara/galería de forma moderna
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.7.1")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    //Para el Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    //Google Maps
+    implementation("com.google.android.gms:play-services-maps:20.0.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

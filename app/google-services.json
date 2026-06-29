@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "268224944506",
+    "project_id": "ares-company",
+    "storage_bucket": "ares-company.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268224944506:android:cb1f8a2c77cc03f191dec3",
+        "android_client_info": {
+          "package_name": "com.tecsup.aresapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs3JA8ya7dxI7HCBYfk_ZVwtJhXdVBn3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

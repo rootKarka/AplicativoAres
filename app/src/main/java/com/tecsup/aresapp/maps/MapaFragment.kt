@@ -1,4 +1,4 @@
-package com.tecsup.aresapp.feature.mapa
+package com.tecsup.aresapp.maps
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,9 +46,9 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         // MAPA NORMAL (Diseño plano de calles)
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
-        // Coordenadas simuladas para probar
-        val latitudRobotFisico = -16.4258
-        val longitudRobotFisico = -71.5035
+        // Coordenadas simuladas para probar -8.148073160786101, -79.04343007924605
+        val latitudRobotFisico = -8.148073160786101
+        val longitudRobotFisico = -79.04343007924605
 
         val posicionRobot = LatLng(latitudRobotFisico, longitudRobotFisico)
 
