@@ -14,7 +14,8 @@ interface ApiService {
     @POST("api/usuarios/login/")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
-    // ── Bitácora ──────────────────────────────────────────────────
+    // ── Bitácora ─────────
+    // ─────────────────────────────────────────
     @GET("api/bitacora/")
     fun getBitacora(@Query("mision") misionId: Int): Call<List<BitacoraDto>>
 

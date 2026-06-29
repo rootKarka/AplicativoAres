@@ -67,6 +67,45 @@
 
     <string name="login_footer">ARES - Sistema de Rescate</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="desc_btn_atras">Atrás</string>
+    <string name="reporte_nuevo_titulo">NUEVO REPORTE</string>
+    <string name="placeholder_bateria_porcentaje">84%</string>
+    <string name="tab_actualizacion">⚡ ACTUALIZACIÓN</string>
+    <string name="tab_finalizar_mision">⛳ FINALIZAR MISIÓN</string>
+
+    <string name="telemetria_automatizada">TELEMETRÍA AUTOMATIZADA</string>
+    <string name="placeholder_hora">14:35</string>
+    <string name="unidad_horas">HRS</string>
+    <string name="etiqueta_gas">GAS (GNV)</string>
+    <string name="placeholder_gas">0.0 PPM</string>
+    <string name="etiqueta_temperatura">TEMPERATURA</string>
+    <string name="placeholder_temperatura">24.5 °C</string>
+    <string name="nivel_gravedad_operativa">NIVEL DE GRAVEDAD OPERATIVA</string>
+    <string name="notas_rapidas_campo">NOTAS RÁPIDAS DE CAMPO</string>
+    <string name="hint_notas_actualizacion">¿QUÉ ESTÁ PASANDO? (OPCIONAL)</string>
+    <string name="accion_recomendada">ACCIÓN RECOMENDADA</string>
+    <string name="hint_accion_recomendada">Ej: Evacuar sector norte, reforzar equipo…</string>
+    <string name="victimas_registradas">VÍCTIMAS REGISTRADAS</string>
+    <string name="victimas_heridas">🩹  Heridas</string>
+    <string name="victimas_fallecidas">💀  Fallecidas</string>
+    <string name="victimas_rescatadas">🚑  Rescatadas</string>
+    <string name="contador_cero">0</string>
+    <string name="btn_enviar_actualizacion">▶  ENVIAR ACTUALIZACIÓN</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="login_titulo_proyecto">PROYECTO ARES</string>
+    <string name="login_subtitulo_tactico">// SISTEMA DE CONTROL REMOTO</string>
+    <string name="hint_correo_operador">Correo de Operador</string>
+    <string name="hint_contrasena">Contraseña</string>
+    <string name="btn_iniciar_mision">▶  INICIAR MISIÓN</string>
+
+    <string name="mapa_ares">MAPA ARES</string>
+
+    <string name="bitacora_titulo_dialogo">Nueva entrada de bitácora</string>
+    <string name="bitacora_opcion_escribir">Escribir nota</string>
+    <string name="bitacora_opcion_grabar">Grabar nota de voz</string>
+    <string name="hint_escribir_nota">Escribe la nota…</string>
+    <string name="btn_guardar_nota">Guardar nota</string>
+
+
 </resources>

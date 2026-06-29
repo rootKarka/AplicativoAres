@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/ares_black">
 
-    <!-- ══ HEADER ══ -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="Atrás"
+            android:contentDescription="@string/desc_btn_atras"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/ares_blue_report"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NUEVO REPORTE"
+            android:text="@string/reporte_nuevo_titulo"
             android:textColor="@color/ares_white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -60,7 +60,7 @@
                 android:id="@+id/tvHeaderBattery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="84%"
+                android:text="@string/placeholder_bateria_porcentaje"
                 android:textColor="@color/ares_green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -75,7 +75,6 @@
         android:background="@color/ares_border"
         app:layout_constraintTop_toBottomOf="@id/headerLayout" />
 
-    <!-- ══ SCROLL ══ -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -90,7 +89,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- ══ TABS ══ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
@@ -113,7 +111,7 @@
                         android:id="@+id/tvTabActualizacion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⚡ ACTUALIZACIÓN"
+                        android:text="@string/tab_actualizacion"
                         android:textColor="@color/ares_black"
                         android:textStyle="bold"
                         android:textSize="11sp" />
@@ -132,19 +130,17 @@
                         android:id="@+id/tvTabFinalizar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⛳ FINALIZAR MISIÓN"
+                        android:text="@string/tab_finalizar_mision"
                         android:textColor="@color/ares_grey"
                         android:textStyle="bold"
                         android:textSize="11sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- ══ PANEL A: ACTUALIZACIÓN ══ -->
             <include
                 android:id="@+id/panelActualizacion"
                 layout="@layout/panel_actualizacion" />
 
-            <!-- ══ PANEL B: FINALIZAR MISIÓN ══ -->
             <include
                 android:id="@+id/panelFinalizar"
                 layout="@layout/panel_finalizar" />

@@ -33,6 +33,6 @@
         android:id="@+id/nav_cuenta"
         android:name="com.tecsup.aresapp.feature.cuenta.CuentaFragment"
         android:label="fragment_cuenta"
-        tools:layout="@layout/fragment_cuenta" />
+        tools:layout="@layout/activity_cuenta" />
 
 </navigation>

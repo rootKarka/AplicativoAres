@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:visibility="visible">
 
-    <!-- ── TELEMETRÍA ── -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TELEMETRÍA AUTOMATIZADA"
+            android:text="@string/telemetria_automatizada"
             android:textColor="@color/ares_blue_report"
             android:textSize="11sp"
             android:textStyle="bold"
@@ -49,7 +48,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Hora -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +60,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="14:35"
+                    android:text="@string/placeholder_hora"
                     android:textColor="@color/ares_white"
                     android:textSize="52sp"
                     android:textStyle="bold"
@@ -71,7 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HRS"
+                    android:text="@string/unidad_horas"
                     android:textColor="@color/ares_grey"
                     android:textSize="14sp"
                     android:fontFamily="monospace"
@@ -84,13 +82,11 @@
                 android:background="@color/ares_border"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Chips GAS + TEMP -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- GAS -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -118,7 +114,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="GAS (GNV)"
+                            android:text="@string/etiqueta_gas"
                             android:textColor="@color/ares_grey"
                             android:textSize="9sp"
                             android:fontFamily="monospace" />
@@ -127,7 +123,7 @@
                             android:id="@+id/tvGas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0.0 PPM"
+                            android:text="@string/placeholder_gas"
                             android:textColor="@color/ares_white"
                             android:textSize="13sp"
                             android:textStyle="bold"
@@ -135,7 +131,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- TEMP -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -162,7 +157,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TEMPERATURA"
+                            android:text="@string/etiqueta_temperatura"
                             android:textColor="@color/ares_grey"
                             android:textSize="9sp"
                             android:fontFamily="monospace" />
@@ -171,7 +166,7 @@
                             android:id="@+id/tvTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="24.5 °C"
+                            android:text="@string/placeholder_temperatura"
                             android:textColor="@color/ares_white"
                             android:textSize="13sp"
                             android:textStyle="bold"
@@ -182,11 +177,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ── NIVEL DE GRAVEDAD ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NIVEL DE GRAVEDAD OPERATIVA"
+        android:text="@string/nivel_gravedad_operativa"
         android:textColor="@color/ares_blue_report"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -199,7 +193,6 @@
         android:orientation="horizontal"
         android:layout_marginBottom="24dp">
 
-        <!-- NORMAL -->
         <LinearLayout
             android:id="@+id/btnGravedadNormal"
             android:layout_width="0dp"
@@ -223,13 +216,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NORMAL"
+                android:text="@string/normal"
                 android:textColor="@color/ares_grey"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- PRECAUCIÓN -->
         <LinearLayout
             android:id="@+id/btnGravedadPrecaucion"
             android:layout_width="0dp"
@@ -254,13 +246,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRECAUCIÓN"
+                android:text="@string/precaucion"
                 android:textColor="@color/ares_grey"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- CRÍTICO -->
         <LinearLayout
             android:id="@+id/btnGravedadCritico"
             android:layout_width="0dp"
@@ -285,18 +276,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CRÍTICO"
+                android:text="@string/critico"
                 android:textColor="@color/ares_grey"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ── NOTAS RÁPIDAS ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NOTAS RÁPIDAS DE CAMPO"
+        android:text="@string/notas_rapidas_campo"
         android:textColor="@color/ares_blue_report"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -310,18 +300,17 @@
         android:background="@drawable/bg_input_field"
         android:gravity="top"
         android:padding="14dp"
-        android:hint="¿QUÉ ESTÁ PASANDO? (OPCIONAL)"
+        android:hint="@string/hint_notas_actualizacion"
         android:textColorHint="@color/ares_grey"
         android:textColor="@color/ares_white"
         android:textSize="13sp"
         android:inputType="textMultiLine"
         android:layout_marginBottom="20dp" />
 
-    <!-- ── ACCIÓN RECOMENDADA ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ACCIÓN RECOMENDADA"
+        android:text="@string/accion_recomendada"
         android:textColor="@color/ares_blue_report"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -335,18 +324,17 @@
         android:background="@drawable/bg_input_field"
         android:gravity="top"
         android:padding="14dp"
-        android:hint="Ej: Evacuar sector norte, reforzar equipo..."
+        android:hint="@string/hint_accion_recomendada"
         android:textColorHint="@color/ares_grey"
         android:textColor="@color/ares_white"
         android:textSize="13sp"
         android:inputType="textMultiLine"
         android:layout_marginBottom="20dp" />
 
-    <!-- ── VÍCTIMAS REGISTRADAS ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VÍCTIMAS REGISTRADAS"
+        android:text="@string/victimas_registradas"
         android:textColor="@color/ares_blue_report"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -361,7 +349,6 @@
         android:padding="16dp"
         android:layout_marginBottom="24dp">
 
-        <!-- Heridas -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -372,7 +359,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🩹  Heridas"
+                android:text="@string/victimas_heridas"
                 android:textColor="@color/ares_white"
                 android:textSize="14sp" />
 
@@ -400,7 +387,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/contador_cero"
                     android:textColor="@color/ares_blue_report"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -425,7 +412,6 @@
             android:background="@color/ares_border"
             android:layout_marginVertical="10dp" />
 
-        <!-- Fallecidas -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -436,7 +422,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="💀  Fallecidas"
+                android:text="@string/victimas_fallecidas"
                 android:textColor="@color/ares_white"
                 android:textSize="14sp" />
 
@@ -464,7 +450,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/contador_cero"
                     android:textColor="@color/ares_red"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -489,7 +475,6 @@
             android:background="@color/ares_border"
             android:layout_marginVertical="10dp" />
 
-        <!-- Rescatadas -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -500,7 +485,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🚑  Rescatadas"
+                android:text="@string/victimas_rescatadas"
                 android:textColor="@color/ares_white"
                 android:textSize="14sp" />
 
@@ -528,7 +513,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/contador_cero"
                     android:textColor="@color/ares_green"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -548,14 +533,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ── BOTÓN ENVIAR ── -->
     <Button
         android:id="@+id/btnEnviarActualizacion"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/ares_blue_report"
-        android:text="▶  ENVIAR ACTUALIZACIÓN"
+        android:text="@string/btn_enviar_actualizacion"
         android:textColor="@color/ares_black"
         android:textStyle="bold"
         android:textSize="13sp"

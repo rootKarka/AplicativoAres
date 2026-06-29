@@ -30,7 +30,7 @@ class CuentaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cuenta, container, false)
+        return inflater.inflate(R.layout.activity_cuenta, container, false)
     }
 
     // 👇 AQUÍ AGREGAMOS LA LÓGICA DEL BOTÓN CUANDO LA VISTA YA ESTÁ CREADA 👇

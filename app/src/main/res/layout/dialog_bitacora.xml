@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nueva entrada de bitácora"
+        android:text="@string/bitacora_titulo_dialogo"
         android:textColor="@color/ares_text_primary"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Escribir nota"
+                android:text="@string/bitacora_opcion_escribir"
                 android:textColor="@color/ares_text_primary"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -75,13 +75,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Grabar nota de voz"
+                android:text="@string/bitacora_opcion_grabar"
                 android:textColor="@color/ares_text_primary"
                 android:textStyle="bold" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Este bloque solo aparece si elige "Escribir nota" -->
     <LinearLayout
         android:id="@+id/contenedor_texto"
         android:layout_width="match_parent"
@@ -98,7 +97,7 @@
                 android:id="@+id/et_nota_texto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escribe la nota..."
+                android:hint="@string/hint_escribir_nota"
                 android:inputType="textMultiLine"
                 android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Guardar nota" />
+            android:text="@string/btn_guardar_nota" />
     </LinearLayout>
 
 </LinearLayout>

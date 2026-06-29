@@ -9,7 +9,6 @@
     android:orientation="vertical"
     android:padding="32dp">
 
-    <!-- Logo / Icono -->
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -17,11 +16,10 @@
         android:src="@drawable/ares_logo_app"
         app:tint="@color/logo_app_color"/>
 
-    <!-- Título -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PROYECTO ARES"
+        android:text="@string/login_titulo_proyecto"
         android:textAlignment="center"
         android:textColor="@color/ares_text_primary"
         android:textSize="26sp"
@@ -30,11 +28,10 @@
         android:letterSpacing="0.15"
         android:layout_marginBottom="6dp"/>
 
-    <!-- Subtítulo táctico -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="// SISTEMA DE CONTROL REMOTO"
+        android:text="@string/login_subtitulo_tactico"
         android:textAlignment="center"
         android:textColor="@color/ares_blue"
         android:textSize="10sp"
@@ -42,19 +39,17 @@
         android:letterSpacing="0.12"
         android:layout_marginBottom="36dp"/>
 
-    <!-- Línea separadora top -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/ares_card_stroke"
         android:layout_marginBottom="28dp"/>
 
-    <!-- Campo Email -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Correo de Operador"
+        android:hint="@string/hint_correo_operador"
         app:boxBackgroundColor="@color/ares_card_bg"
         app:boxBackgroundMode="filled"
         app:boxCornerRadiusTopStart="8dp"
@@ -77,12 +72,11 @@
             android:textColorHint="@color/ares_text_secondary"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Campo Contraseña -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:hint="Contraseña"
+        android:hint="@string/hint_contrasena"
         app:boxBackgroundColor="@color/ares_card_bg"
         app:boxBackgroundMode="filled"
         app:boxCornerRadiusTopStart="8dp"
@@ -107,12 +101,11 @@
             android:textColorHint="@color/ares_text_secondary"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botón INICIAR MISIÓN -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="▶  INICIAR MISIÓN"
+        android:text="@string/btn_iniciar_mision"
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/ares_white"
@@ -121,7 +114,6 @@
         app:backgroundTint="@color/ares_blue"
         app:cornerRadius="8dp"/>
 
-    <!-- Línea separadora bottom -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -129,7 +121,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Footer -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

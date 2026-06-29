@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="MAPA ARES"
+                android:text="@string/mapa_ares"
                 android:textColor="@color/ares_text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
