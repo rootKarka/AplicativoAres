@@ -7,7 +7,8 @@ data class LoginResponse(
 )
 
 data class UsuarioDto(
+    val id:     Int,      // ← agregar
     val nombre: String,
-    val rol: String,
-    val sede: String
+    val rol:    String,
+    val sede:   String,
 )

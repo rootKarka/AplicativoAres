@@ -31,6 +31,7 @@ import com.tecsup.aresapp.data.ReporteFinalRequest
 import com.tecsup.aresapp.data.ResumenMisionDto
 import com.tecsup.aresapp.data.RetrofitClient
 import com.tecsup.aresapp.databinding.FragmentReporteBinding
+import com.tecsup.aresapp.data.MisionCerradaDto
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -666,6 +667,21 @@ class ReporteFragment : Fragment() {
             override fun onFailure(call: Call<ReporteFinalDto>, t: Throwable) {
                 if (!isAdded) return
                 Toast.makeText(requireContext(), "Sin conexión: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    // ── Cerrar misión en Django ───────────────────────────────────────
+    private fun cerrarMisionEnDjango() {
+        api.cerrarMision(misionId).enqueue(object : Callback<MisionCerradaDto> {
+            override fun onResponse(
+                call: Call<MisionCerradaDto>,
+                response: Response<MisionCerradaDto>
+            ) {
+                Log.d("API", "Misión cerrada: ${response.code()}")
+            }
+            override fun onFailure(call: Call<MisionCerradaDto>, t: Throwable) {
+                Log.e("API", "Error cerrando misión: ${t.message}")
             }
         })
     }

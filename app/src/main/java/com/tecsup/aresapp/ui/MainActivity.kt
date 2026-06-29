@@ -26,7 +26,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.lifecycle.lifecycleScope // <-- Importante verificar este import
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -36,10 +36,10 @@ import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tecsup.aresapp.ui.components.BitacoraDialog
 import com.tecsup.aresapp.R
-import com.tecsup.aresapp.data.RetrofitClient // <-- Importamos tu cliente de red
+import com.tecsup.aresapp.data.RetrofitClient
 import com.tecsup.aresapp.databinding.ActivityMainBinding
 import com.tecsup.aresapp.feature.login.LoginActivity
-import kotlinx.coroutines.launch // <-- Necesario para lanzar el scope de la corrutina
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var fabExpanded = false
 
-    // Variables para la gestión de Notificaciones y Mensajería
     private var contadorNotificaciones = 0
     private var badgeDrawable: BadgeDrawable? = null
     private val CHANNEL_ID = "ARES_CRITICAL_ALERTS"
@@ -73,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         crearCanalNotificaciones()
         registrarAlertaReceiver()
 
-        // ── LISTENER ORIGINAL PARA OCULTAR EL FAB EN CONTROL (SIN CAMBIOS) ──
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.nav_control) {
                 if (fabExpanded) collapseFab()
@@ -87,7 +85,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupThemeIcon() {
         val isNightMode = (resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-
         val themeItem = binding.topAppBar.menu.findItem(R.id.nav_theme_toggle)
         themeItem?.setIcon(if (isNightMode) R.drawable.ic_moon else R.drawable.ic_sun)
     }
@@ -127,14 +124,13 @@ class MainActivity : AppCompatActivity() {
             if (fabExpanded) expandFab() else collapseFab()
         }
 
-        // Acción para enviar mensaje al Administrador
+        // ── Mensaje al administrador ──────────────────────────────
         binding.fabMensaje.setOnClickListener {
             collapseFab()
             val inputEditText = EditText(this).apply {
                 hint = "Escribe un mensaje urgente al administrador..."
                 setPadding(50, 40, 50, 40)
             }
-
             MaterialAlertDialogBuilder(this)
                 .setTitle("💬 Mensaje Directo al Admin")
                 .setMessage("Reporta incidencias operativas de la misión:")
@@ -151,49 +147,43 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
+        // ── Cámara de entorno ─────────────────────────────────────
         binding.fabCamaraEntorno.setOnClickListener {
             collapseFab()
             verificarPermisoYAbrirCamara()
         }
 
+        // ── Bitácora — abre el dialog con misionId y autorId ──────
         binding.fabMicBitacora.setOnClickListener {
             collapseFab()
-            BitacoraDialog().show(supportFragmentManager, BitacoraDialog.TAG)
+
+            // Leer datos de sesión guardados en el login
+            val prefs    = getSharedPreferences("ares_preferences", Context.MODE_PRIVATE)
+            val misionId = prefs.getInt("mision_id", 1)
+            val autorId  = prefs.getInt("autor_id",  1)
+
+            val dialog = BitacoraDialog.newInstance(misionId, autorId)
+            dialog.onEntradaGuardada = { texto, tipo, esVoz ->
+                val label = if (esVoz) "🎤 Voz" else "📝 Texto"
+                Toast.makeText(this, "$label guardada en bitácora", Toast.LENGTH_SHORT).show()
+            }
+            dialog.show(supportFragmentManager, BitacoraDialog.TAG)
         }
     }
 
-    /**
-     * MEJORADO: Ahora implementa Corrutinas de Kotlin para consumir el ApiService asíncrono
-     * sin bloquear el hilo principal de la interfaz de usuario.
-     */
     private fun enviarMensajeAlBackend(contenido: String) {
-        // Lanzamos la corrutina ligada al ciclo de vida de la Activity
         lifecycleScope.launch {
             try {
-                // NOTA: Para que esto funcione 100%, tu ApiService debe tener definido un método como:
-                // suspend fun enviarMensaje(@Body request: MensajeRequest): Response<MensajeResponse>
-                // Por ahora simulamos la suspensión apuntando a tu arquitectura actual de pruebas:
-
-                // Toast informativo de inicio de proceso (puedes cambiarlo por un ProgressBar flotante)
                 Toast.makeText(this@MainActivity, "Enviando reporte...", Toast.LENGTH_SHORT).show()
-
-                // LLAMADA SUSPENDIDA: La app espera aquí de fondo sin congelar la pantalla
-                // Reemplaza esto con tu endpoint real de mensajes cuando lo agregues a tu ApiService:
-                // val response = RetrofitClient.instance.enviarMensaje(MensajeRequest(contenido))
-
-                // Simulamos una validación exitosa de red con la respuesta de tu backend
                 val backendExitoso = true
-
                 if (backendExitoso) {
                     Toast.makeText(this@MainActivity, "📨 Mensaje enviado al Administrador", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@MainActivity, "❌ El servidor rechazó el mensaje", Toast.LENGTH_SHORT).show()
                 }
-
             } catch (e: Exception) {
-                // Captura fallos de internet, timeouts o caídas de Django
                 Log.e("MainActivity", "Error al enviar mensaje: ${e.message}", e)
-                Toast.makeText(this@MainActivity, "⚠️ Error de red. No se pudo enviar el mensaje.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, "⚠️ Error de red.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -203,19 +193,17 @@ class MainActivity : AppCompatActivity() {
         binding.topAppBar.post {
             badgeDrawable = BadgeDrawable.create(this).apply {
                 backgroundColor = ContextCompat.getColor(this@MainActivity, android.R.color.holo_red_dark)
-                badgeTextColor = ContextCompat.getColor(this@MainActivity, android.R.color.white)
+                badgeTextColor  = ContextCompat.getColor(this@MainActivity, android.R.color.white)
                 isVisible = false
             }
-            BadgeUtils.attachBadgeDrawable(
-                badgeDrawable!!, binding.topAppBar, R.id.action_notifications
-            )
+            BadgeUtils.attachBadgeDrawable(badgeDrawable!!, binding.topAppBar, R.id.action_notifications)
         }
     }
 
     fun incrementarNotificaciones() {
         contadorNotificaciones++
         badgeDrawable?.apply {
-            number = contadorNotificaciones
+            number    = contadorNotificaciones
             isVisible = true
         }
     }
@@ -226,11 +214,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ejecutarCierreDeSesion() {
+        // Limpiar sesión al cerrar
+        getSharedPreferences("ares_preferences", Context.MODE_PRIVATE)
+            .edit()
+            .clear()
+            .apply()
+
         Toast.makeText(this, "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show()
-
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
         startActivity(intent)
         finish()
     }
@@ -246,27 +239,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun crearCanalNotificaciones() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Alertas Críticas ARES"
-            val descriptionText = "Notificaciones de alta prioridad para control de riesgos y fugas."
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Alertas Críticas ARES",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Notificaciones de alta prioridad para control de riesgos y fugas."
             }
-            val notificationManager: NotificationManager =
-                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager)
+                .createNotificationChannel(channel)
         }
     }
 
     private fun registrarAlertaReceiver() {
         alertaReceiver = AlertaAccionReceiver()
         val filter = IntentFilter("com.tecsup.aresapp.ACTION_ALERTA_ENTENDIDO")
-
         ContextCompat.registerReceiver(
-            this,
-            alertaReceiver,
-            filter,
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            this, alertaReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED
         )
     }
 
@@ -276,11 +265,10 @@ class MainActivity : AppCompatActivity() {
             putExtra("ALERTA_ID", id)
             setPackage(packageName)
         }
-        val pendingIntentEntendido = PendingIntent.getBroadcast(
+        val pendingIntent = PendingIntent.getBroadcast(
             this, id, intentEntendido,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(titulo)
@@ -288,11 +276,12 @@ class MainActivity : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)
-            .addAction(R.drawable.ic_bucle, "ENTENDIDO (PROCESAR)", pendingIntentEntendido)
+            .addAction(R.drawable.ic_bucle, "ENTENDIDO (PROCESAR)", pendingIntent)
 
         val notificationManager = NotificationManagerCompat.from(this)
         try {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < 33) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < 33) {
                 notificationManager.notify(id, builder.build())
                 incrementarNotificaciones()
             }
@@ -304,20 +293,14 @@ class MainActivity : AppCompatActivity() {
     private val requestCameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { esConcedido ->
-        if (esConcedido) {
-            abrirCamaraEntorno()
-        } else {
-            Toast.makeText(this, "⚠️ Se requiere el permiso de cámara para registrar evidencias.", Toast.LENGTH_LONG).show()
-        }
+        if (esConcedido) abrirCamaraEntorno()
+        else Toast.makeText(this, "⚠️ Se requiere el permiso de cámara.", Toast.LENGTH_LONG).show()
     }
 
     private fun verificarPermisoYAbrirCamara() {
         val estadoPermiso = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-        if (estadoPermiso == PackageManager.PERMISSION_GRANTED) {
-            abrirCamaraEntorno()
-        } else {
-            requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
+        if (estadoPermiso == PackageManager.PERMISSION_GRANTED) abrirCamaraEntorno()
+        else requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private var fotoUriActual: Uri? = null
@@ -335,11 +318,7 @@ class MainActivity : AppCompatActivity() {
     private fun abrirCamaraEntorno() {
         try {
             val archivo = crearArchivoTemporal()
-            val uri = FileProvider.getUriForFile(
-                this,
-                "${packageName}.fileprovider",
-                archivo
-            )
+            val uri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", archivo)
             fotoUriActual = uri
             cameraLauncher.launch(uri)
         } catch (e: Exception) {
@@ -351,19 +330,14 @@ class MainActivity : AppCompatActivity() {
     private fun crearArchivoTemporal(): File {
         val carpeta = getExternalFilesDir("Pictures/ARES")
         if (carpeta != null && !carpeta.exists()) carpeta.mkdirs()
-        val nombre = "ENTORNO_${
-            SimpleDateFormat(
-                "yyyyMMdd_HHmmss",
-                Locale.getDefault()
-            ).format(Date())}.jpg"
+        val nombre = "ENTORNO_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.jpg"
         return File(carpeta, nombre)
     }
 
     private fun expandFab() {
-        binding.fabMensaje.visibility = View.VISIBLE
+        binding.fabMensaje.visibility      = View.VISIBLE
         binding.fabCamaraEntorno.visibility = View.VISIBLE
-        binding.fabMicBitacora.visibility = View.VISIBLE
-
+        binding.fabMicBitacora.visibility  = View.VISIBLE
         binding.fabMensaje.animate().alpha(1f).setDuration(150).start()
         binding.fabCamaraEntorno.animate().alpha(1f).setDuration(150).start()
         binding.fabMicBitacora.animate().alpha(1f).setDuration(150).start()
@@ -392,11 +366,9 @@ class MainActivity : AppCompatActivity() {
     inner class AlertaAccionReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val alertaId = intent?.getIntExtra("ALERTA_ID", 0) ?: 0
-
             Toast.makeText(context, "✅ Alerta #$alertaId Confirmada", Toast.LENGTH_SHORT).show()
-
-            val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(alertaId)
+            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+                .cancel(alertaId)
         }
     }
 }

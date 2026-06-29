@@ -34,6 +34,10 @@ interface ApiService {
     @GET("api/misiones/{id}/resumen/")
     fun getResumenMision(@Path("id") misionId: Int): Call<ResumenMisionDto>
 
+    // ── Cerrar Misión (después del reporte final) ─────────────────
+    @POST("api/misiones/{id}/cerrar/")
+    fun cerrarMision(@Path("id") misionId: Int): Call<MisionCerradaDto>
+
     // ── Evidencia fotográfica ─────────────────────────────────────
     @Multipart
     @POST("api/evidencias/")
