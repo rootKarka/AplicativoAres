@@ -58,9 +58,9 @@ class ReporteFragment : Fragment() {
 
     // ── API ───────────────────────────────────────────────────────
     private val api get() = RetrofitClient.instance
-    private val WS_URL = "ws://10.147.188.126:8000/ws/sensores/"
+    private val WS_URL = "wss://proyeecto-ares.onrender.com/ws/sensores/"
 
-    // TODO: recibir desde login via SharedPreferences o Bundle
+    // ── Datos de sesión (leídos desde SharedPreferences) ───────────
     private var misionId = 1
     private var autorId  = 1
 
@@ -110,6 +110,12 @@ class ReporteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // ── Leer misionId/autorId desde la sesión guardada en el login ──
+        val prefs = requireActivity().getSharedPreferences("ares_preferences", Context.MODE_PRIVATE)
+        misionId  = prefs.getInt("mision_id", 1)
+        autorId   = prefs.getInt("autor_id",  1)
+
         setupTabs()
         setupGravedadActualizacion()
         setupGravedadFinalizar()
@@ -152,12 +158,15 @@ class ReporteFragment : Fragment() {
     }
 
     // ── WEBSOCKET ─────────────────────────────────────────────────
+    private var intentosReconexionWs = 0
+
     private fun conectarWebSocket() {
         try {
             wsClient = object : WebSocketClient(URI(WS_URL)) {
 
                 override fun onOpen(handshake: ServerHandshake?) {
                     Log.d("WS", "Conectado a $WS_URL")
+                    intentosReconexionWs = 0 // resetear contador al conectar bien
                 }
 
                 override fun onMessage(message: String?) {
@@ -172,10 +181,14 @@ class ReporteFragment : Fragment() {
 
                 override fun onClose(code: Int, reason: String?, remote: Boolean) {
                     Log.d("WS", "Cerrado: $reason")
-                    // Reconectar después de 3 segundos
+                    // Backoff progresivo: 2s, 4s, 6s... hasta 10s máximo,
+                    // para no saturar la conexión a PostgreSQL con reintentos
+                    // demasiado agresivos cuando el servidor está inestable.
+                    intentosReconexionWs++
+                    val delayMs = (1500L * intentosReconexionWs).coerceAtMost(5000L)
                     android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
                         if (isAdded) conectarWebSocket()
-                    }, 3000)
+                    }, delayMs)
                 }
 
                 override fun onError(ex: Exception?) {
@@ -290,7 +303,9 @@ class ReporteFragment : Fragment() {
     }
 
     // ── CARGAR BITÁCORA (Retrofit GET) ────────────────────────────
-    private fun cargarBitacoraDesdjango() {
+    // Público para poder refrescarse desde MainActivity cuando se guarda
+    // una nueva entrada desde BitacoraDialog (texto, voz o foto).
+    fun cargarBitacoraDesdjango() {
         api.getBitacora(misionId).enqueue(object : Callback<List<BitacoraDto>> {
             override fun onResponse(call: Call<List<BitacoraDto>>, response: Response<List<BitacoraDto>>) {
                 if (!isAdded) return
@@ -659,9 +674,12 @@ class ReporteFragment : Fragment() {
                     )
                     pF.etNotasOperador.text?.clear()
                     wsClient?.close()
+                    cerrarMisionEnDjango()
                     Toast.makeText(requireContext(), "🚨 Misión finalizada y enviada a base", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("API", "Error reporte final ${response.code()}: $errorBody")
+                    Toast.makeText(requireContext(), "Error: ${response.code()} - $errorBody", Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<ReporteFinalDto>, t: Throwable) {

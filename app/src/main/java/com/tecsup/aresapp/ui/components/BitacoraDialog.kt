@@ -126,6 +126,10 @@ class BitacoraDialog : DialogFragment() {
     }
 
     // ── 4. GUARDAR EN DJANGO via Retrofit ─────────────────────────
+    // IMPORTANTE: usamos el contexto de la Activity (no el del Fragment/Dialog)
+    // porque para cuando llega la respuesta del servidor, el dialog ya pudo
+    // haberse cerrado (dismiss()) y su `context` se vuelve null, lo que
+    // provocaba un NullPointerException en Toast.makeText() y crasheaba la app.
     private fun guardarEntradaBitacora(texto: String, esVoz: Boolean) {
         val tipo = when {
             esVoz -> "NOTA"   // voz transcrita → tipo NOTA
@@ -144,6 +148,10 @@ class BitacoraDialog : DialogFragment() {
             longitud     = 0.0,
         )
 
+        // Guardamos referencia al contexto de la Activity ANTES de que el
+        // diálogo pueda destruirse, para usarla de forma segura en el callback.
+        val ctxApp = activity?.applicationContext
+
         RetrofitClient.instance.postBitacora(request)
             .enqueue(object : Callback<BitacoraDto> {
                 override fun onResponse(
@@ -154,13 +162,19 @@ class BitacoraDialog : DialogFragment() {
                         // Notificar al Fragment para que actualice la lista
                         onEntradaGuardada?.invoke(texto, tipo, esVoz)
                         val tipoLabel = if (esVoz) "🎤 Voz" else "📝 Texto"
-                        Toast.makeText(context, "$tipoLabel guardada en bitácora", Toast.LENGTH_SHORT).show()
+                        ctxApp?.let {
+                            Toast.makeText(it, "$tipoLabel guardada en bitácora", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
-                        Toast.makeText(context, "Error al guardar: ${response.code()}", Toast.LENGTH_LONG).show()
+                        ctxApp?.let {
+                            Toast.makeText(it, "Error al guardar: ${response.code()}", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
                 override fun onFailure(call: Call<BitacoraDto>, t: Throwable) {
-                    Toast.makeText(context, "Sin conexión: ${t.message}", Toast.LENGTH_LONG).show()
+                    ctxApp?.let {
+                        Toast.makeText(it, "Sin conexión: ${t.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
             })
     }

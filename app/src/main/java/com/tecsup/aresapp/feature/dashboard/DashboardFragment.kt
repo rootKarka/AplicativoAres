@@ -72,7 +72,7 @@ class DashboardFragment : Fragment() {
             return
         }
 
-        client = object : WebSocketClient(URI("ws://10.147.188.78:8000/ws/sensores/")) {
+        client = object : WebSocketClient(URI("wss://proyeecto-ares.onrender.com/ws/sensores/")) {
             override fun onOpen(handshakedata: ServerHandshake?) {
                 Log.d("WS", "WebSocket conectado exitosamente")
             }

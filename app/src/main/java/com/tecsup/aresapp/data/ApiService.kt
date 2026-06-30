@@ -47,4 +47,20 @@ interface ApiService {
         @Part("tipo")    tipo:    RequestBody,
         @Part           archivo: MultipartBody.Part
     ): Call<EvidenciaDto>
+
+    // ── Mensajería Operador ↔ Admin ─────────────────────────────────
+    // GET /api/mensajes/?destinatario={id}  → mensajes recibidos por el operador
+    @GET("api/mensajes/")
+    fun getMensajes(@Query("destinatario") destinatarioId: Int): Call<List<MensajeOperadorDto>>
+
+    // POST /api/mensajes/ → el operador responde / envía un mensaje al admin
+    @POST("api/mensajes/")
+    fun postMensaje(@Body body: MensajeOperadorRequest): Call<MensajeOperadorDto>
+
+    // PATCH /api/mensajes/{id}/ {"leido": true} → marcar mensaje como leído
+    @PATCH("api/mensajes/{id}/")
+    fun marcarMensajeLeido(
+        @Path("id") mensajeId: Int,
+        @Body body: MensajeLeidoRequest = MensajeLeidoRequest()
+    ): Call<MensajeOperadorDto>
 }

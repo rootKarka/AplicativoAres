@@ -93,3 +93,34 @@ data class UsuarioDto(
     val rol:    String,
     val sede:   String,
 )
+
+// ── Mensajería Operador ↔ Admin ────────────────────────────────────
+// Agregar este bloque dentro de AresModels.kt (o en un archivo nuevo
+// si prefieres mantenerlo separado; el package debe coincidir).
+
+data class MensajeOperadorDto(
+    val id:                Int,
+    val remitente_id:      Int?,
+    val remitente_nombre:  String?,
+    val destinatario_id:   Int?,
+    val destinatario_nombre: String?,
+    val mision:            Int,
+    val tipo:              String,
+    val contenido:         String,
+    val prioridad:         String,
+    val leido:             Boolean,
+    val created_at:        String,
+)
+
+data class MensajeOperadorRequest(
+    val remitente:    Int,
+    val destinatario: Int,
+    val mision:        Int,
+    val tipo:          String,   // INSTRUCCION | EVACUACION | INFORMATIVO | CRITICO_AUTO
+    val contenido:     String,
+    val prioridad:     String = "NORMAL",  // NORMAL | URGENTE | CRITICO
+)
+
+data class MensajeLeidoRequest(
+    val leido: Boolean = true,
+)
