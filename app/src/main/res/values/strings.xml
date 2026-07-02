@@ -107,5 +107,76 @@
     <string name="hint_escribir_nota">Escribe la nota…</string>
     <string name="btn_guardar_nota">Guardar nota</string>
 
+    <!-- Diagnóstico Fragment -->
+    <string name="diag_robot_online">ROBOT ONLINE</string>
+    <string name="diag_websocket_activo">▶ WebSocket Activo • Transmisión en tiempo real</string>
+    <string name="diag_telemetria_actual">TELEMETRÍA ACTUAL</string>
+    <string name="diag_etiqueta_humedad">HUMEDAD</string>
+    <string name="diag_etiqueta_gas_gnv">MONITOREO DE GAS (GNV)</string>
+    <string name="diag_placeholder_vacio_c">-- °C</string>
+    <string name="diag_placeholder_vacio_pct">-- %</string>
+    <string name="diag_placeholder_vacio_ppm">-- PPM</string>
+    <string name="diag_historial_titulo">HISTORIAL EN TIEMPO REAL (ÚLTIMOS MINUTOS)</string>
+    <string name="diag_historial_temp">Historial de Temperatura (°C)</string>
+    <string name="diag_historial_humedad">Historial de Humedad (%)</string>
+    <string name="diag_historial_gas">Historial de Gas (PPM)</string>
+
+    <!-- Editar Perfil Dialog -->
+    <string name="perfil_editar_titulo">EDITAR PERFIL</string>
+    <string name="perfil_label_nombre">NOMBRE</string>
+    <string name="perfil_hint_nombre">Nombre del operador</string>
+    <string name="perfil_hint_correo">correo@ejemplo.com</string>
+    <string name="perfil_btn_cancelar">CANCELAR</string>
+    <string name="perfil_btn_guardar">GUARDAR</string>
+
+    <!-- Control Fragment -->
+    <string name="control_tab_manual">MANUAL</string>
+    <string name="control_tab_autonomo">AUTÓNOMO</string>
+    <string name="control_live">● LIVE</string>
+    <string name="control_latencia_default">24ms</string>
+    <string name="control_rec">● REC</string>
+    <string name="control_cam_info">CAM FRONTAL\n1920x1080 - 30fps</string>
+    <string name="control_rumbo_default">000° RUMBO</string>
+    <string name="control_velocidad_default">0.0 m/s</string>
+    <string name="control_motor">MOTOR</string>
+
+    <!-- Content Descriptions (accesibilidad) -->
+    <string name="cd_btn_camara">Tomar foto</string>
+    <string name="cd_btn_video">Grabar video</string>
+    <string name="cd_btn_mic">Micrófono</string>
+    <string name="cd_btn_switch">Cambiar modo</string>
+    <string name="cd_brujula">Brújula de rumbo</string>
+
+    <!-- Sistema Fragment -->
+    <string name="sistema_conexion">CONEXIÓN</string>
+    <string name="sistema_puertos_protocolos">PUERTOS &amp; PROTOCOLOS</string>
+    <string name="sistema_intensidad_wifi">INTENSIDAD WI-FI</string>
+    <string name="sistema_dbm_default">-42 dBm</string>
+    <string name="sistema_servidor">SERVIDOR</string>
+    <string name="sistema_django_online">DJANGO: ONLINE</string>
+    <string name="sistema_sensores_raw">SENSORES (RAW)</string>
+    <string name="sistema_sensor_dht11">DHT11 (HUMID)</string>
+    <string name="sistema_dht11_default">45.2%</string>
+    <string name="sistema_sensor_mq2">MQ-2 (GAS)</string>
+    <string name="sistema_mq2_default">0.023 ppm</string>
+    <string name="sistema_voltaje_bus">VOLTAJE BUS</string>
+    <string name="sistema_voltaje_default">24.08V</string>
+    <string name="sistema_registro_critico">REGISTRO CRÍTICO DE MISIÓN</string>
+    <string name="sistema_log1_hora">14:22:05</string>
+    <string name="sistema_log1_msg">• SISTEMA: Conexión restablecida con nodo central.</string>
+    <string name="sistema_log2_hora">14:20:12</string>
+    <string name="sistema_log2_msg">• BATERÍA: Umbral de seguridad alcanzado. Carga al 40%.</string>
+    <string name="sistema_log3_hora">14:15:33</string>
+    <string name="sistema_log3_msg">• SENSORES: Calibración del módulo MQ-2 completada.</string>
+    <string name="sistema_log4_hora">14:02:10</string>
+    <string name="sistema_log4_msg">• ALERTA: Desviación de torque en motor trasero izquierdo detectada.</string>
+    <string name="sistema_por_hacer">Por hacer</string>
+    <string name="sistema_btn_vista">Vista</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_icono_wifi">Ícono de conexión WiFi</string>
+    <string name="cd_icono_sensores">Ícono de sensores</string>
+    <string name="cd_icono_warning">Ícono de advertencia</string>
+
 
 </resources>

@@ -9,6 +9,7 @@
     android:padding="16dp"
     tools:context=".feature.control.Control">
 
+    <!-- ══ TABS MANUAL / AUTÓNOMO ══ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +24,7 @@
             android:background="@drawable/bg_tab_active"
             android:gravity="center"
             android:padding="12dp"
-            android:text="MANUAL"
+            android:text="@string/control_tab_manual"
             android:textColor="@color/ares_text_primary"
             android:textStyle="bold" />
 
@@ -35,11 +36,12 @@
             android:background="@drawable/bg_tab_inactive"
             android:gravity="center"
             android:padding="12dp"
-            android:text="AUTÓNOMO"
+            android:text="@string/control_tab_autonomo"
             android:textColor="@color/ares_text_secondary"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- ══ CARD CÁMARA ══ -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -64,45 +66,50 @@
                 android:layout_height="match_parent"
                 android:padding="12dp">
 
+                <!-- LIVE badge -->
                 <TextView
                     android:id="@+id/tv_live"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="● LIVE"
+                    android:text="@string/control_live"
                     android:textColor="@color/ares_green"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
+                <!-- Latencia -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_toEndOf="@id/tv_live"
-                    android:text="24ms"
+                    android:text="@string/control_latencia_default"
                     android:textColor="@color/ares_text_secondary"
                     android:textSize="12sp" />
 
+                <!-- REC badge -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="● REC"
+                    android:text="@string/control_rec"
                     android:textColor="@color/ares_orange"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
+                <!-- Info cámara -->
                 <TextView
                     android:id="@+id/tv_camera_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:text="CAM FRONTAL\n1920x1080 - 30fps"
+                    android:text="@string/control_cam_info"
                     android:textColor="@color/ares_blue"
                     android:textSize="10sp" />
             </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- ══ BOTONES DE ACCIÓN ══ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,6 +117,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <!-- Cámara -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_camara"
             android:layout_width="48dp"
@@ -123,10 +131,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/cd_btn_camara"
                 android:src="@drawable/ic_camara"
                 app:tint="@color/ares_blue" />
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Video -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_video"
             android:layout_width="48dp"
@@ -138,10 +148,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/cd_btn_video"
                 android:src="@drawable/ic_video"
                 app:tint="@color/ares_text_primary" />
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Micrófono -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_mic"
             android:layout_width="48dp"
@@ -153,10 +165,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/cd_btn_mic"
                 android:src="@drawable/ic_mic"
                 app:tint="@color/ares_text_primary" />
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Switch/Bucle -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_switch"
             android:layout_width="48dp"
@@ -168,10 +182,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/cd_btn_switch"
                 android:src="@drawable/ic_bucle"
                 app:tint="@color/ares_text_primary" />
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Mapa -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_mapa"
             android:layout_width="48dp"
@@ -185,17 +201,20 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/nav_mapa"
                 android:src="@drawable/ic_mapa"
                 app:tint="@color/ares_orange" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
+    <!-- ══ JOYSTICK + BRÚJULA + VELOCIDAD ══ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
+        <!-- Brújula -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -206,6 +225,7 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="@string/cd_brujula"
                 android:background="@drawable/circle_dark"
                 android:backgroundTint="@color/ares_surface" />
 
@@ -213,12 +233,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="000°\nRUMBO"
+                android:text="@string/control_rumbo_default"
                 android:textAlignment="center"
                 android:textColor="@color/ares_blue"
                 android:textSize="10sp" />
         </LinearLayout>
 
+        <!-- Joystick -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/joystick_container"
             android:layout_width="0dp"
@@ -247,6 +268,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Velocidad + Motor -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -257,7 +279,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0.0\nm/s"
+                android:text="@string/control_velocidad_default"
                 android:textAlignment="center"
                 android:textColor="@color/ares_text_primary"
                 android:textSize="14sp"
@@ -266,17 +288,19 @@
             <View
                 android:layout_width="4dp"
                 android:layout_height="80dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/ares_card_stroke" />
 
             <TextView
                 android:id="@+id/tv_mode_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MOTOR"
+                android:text="@string/control_motor"
                 android:textColor="@color/ares_blue"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EDITAR PERFIL"
+        android:text="@string/perfil_editar_titulo"
         android:textColor="@color/ares_text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -20,11 +20,11 @@
         android:letterSpacing="0.08"
         android:layout_marginBottom="20dp" />
 
-    <!-- Nombre -->
+    <!-- Label Nombre -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NOMBRE"
+        android:text="@string/perfil_label_nombre"
         android:textColor="@color/ares_text_secondary"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -50,14 +50,14 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:textColor="@color/ares_text_primary"
-            android:hint="Nombre del operador" />
+            android:hint="@string/perfil_hint_nombre" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Correo -->
+    <!-- Label Correo -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CORREO"
+        android:text="@string/cuenta_correo_label"
         android:textColor="@color/ares_text_secondary"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -83,14 +83,14 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:textColor="@color/ares_text_primary"
-            android:hint="correo@ejemplo.com" />
+            android:hint="@string/perfil_hint_correo" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- ID Operador -->
+    <!-- Label ID Operador -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID OPERADOR"
+        android:text="@string/cuenta_id_label"
         android:textColor="@color/ares_text_secondary"
         android:textSize="10sp"
         android:fontFamily="monospace"
@@ -117,7 +117,7 @@
             android:inputType="text"
             android:textColor="@color/ares_text_primary"
             android:fontFamily="monospace"
-            android:hint="OP-20251047" />
+            android:hint="@string/cuenta_id_default" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botones -->
@@ -132,7 +132,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="CANCELAR"
+            android:text="@string/perfil_btn_cancelar"
             android:textColor="@color/ares_text_secondary"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -148,7 +148,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:text="GUARDAR"
+            android:text="@string/perfil_btn_guardar"
             android:textColor="@color/ares_card_bg"
             android:textSize="12sp"
             android:textStyle="bold"

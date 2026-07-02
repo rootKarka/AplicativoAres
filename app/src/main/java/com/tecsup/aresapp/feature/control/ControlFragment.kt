@@ -34,7 +34,7 @@ class Control : Fragment() {
     private var _binding: FragmentControlBinding? = null
     private val binding get() = _binding!!
 
-    private val esp32Ip = "10.147.188.102"
+    private val esp32Ip = "192.168.1.39"
     private val port = 1234
     private var lastSentTime = 0L
     private val sendInterval = 50L
@@ -72,7 +72,7 @@ class Control : Fragment() {
         webSettings.loadWithOverviewMode = true
         webSettings.useWideViewPort = true
 
-        val streamUrl = "http://$esp32Ip:81/stream"
+        val streamUrl = "http://10.147.188.197:81/stream"
         webView.loadUrl(streamUrl)
     }
 
