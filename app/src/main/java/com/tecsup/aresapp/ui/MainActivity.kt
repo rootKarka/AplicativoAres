@@ -43,10 +43,14 @@ import com.tecsup.aresapp.data.MensajeLeidoRequest
 import com.tecsup.aresapp.data.MensajeOperadorDto
 import com.tecsup.aresapp.data.MensajeOperadorRequest
 import com.tecsup.aresapp.data.RetrofitClient
+import com.tecsup.aresapp.data.TokenPushRequest
+import com.tecsup.aresapp.data.room.AppDatabase
+import com.tecsup.aresapp.data.room.AlertaEntity
 import com.tecsup.aresapp.databinding.ActivityMainBinding
 import com.tecsup.aresapp.feature.login.LoginActivity
 import com.tecsup.aresapp.feature.reporte.ReporteFragment
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -72,6 +76,8 @@ class MainActivity : AppCompatActivity() {
     private var badgeDrawable: BadgeDrawable? = null
     private val CHANNEL_ID = "ARES_CRITICAL_ALERTS"
     private lateinit var alertaReceiver: AlertaAccionReceiver
+    private lateinit var db: AppDatabase
+    private lateinit var nuevaAlertaReceiver: BroadcastReceiver
 
     // ── WebSocket de Mensajería ──────────────────────────────────────
     private var mensajesWsClient: WebSocketClient? = null
@@ -94,8 +100,13 @@ class MainActivity : AppCompatActivity() {
         registrarAlertaReceiver()
         conectarWebSocketMensajes()
 
+        db = AppDatabase.getDatabase(this)
+        registrarNuevaAlertaReceiver()
+        observarAlertasNoLeidas()
+        obtenerYEnviarFCMToken()
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.nav_control) {
+            if (destination.id == R.id.nav_control || destination.id == R.id.nav_diagnostico) {
                 if (fabExpanded) collapseFab()
                 binding.fabMain.hide()
             } else {
@@ -104,11 +115,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupThemeIcon() {
+    fun updateThemeIcon() {
         val isNightMode = (resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
         val themeItem = binding.topAppBar.menu.findItem(R.id.nav_theme_toggle)
         themeItem?.setIcon(if (isNightMode) R.drawable.ic_moon else R.drawable.ic_sun)
+    }
+
+    private fun setupThemeIcon() {
+        updateThemeIcon()
     }
 
     private fun setupTopBarMenu(navController: NavController) {
@@ -133,11 +148,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleThemeMode() {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+        val isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES
+
+        // Guardar preferencia
+        val prefs = getSharedPreferences("ares_preferences", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("dark_mode", !isNightMode).apply()
+
+        // Cambiar tema
+        if (isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+
+        // Actualizar icono
+        setupThemeIcon()
     }
 
     // ── Busca el ReporteFragment activo dentro del NavHostFragment ────
@@ -401,13 +426,112 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun registrarNuevaAlertaReceiver() {
+        nuevaAlertaReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                // El contador se actualizará por Flow en observarAlertasNoLeidas()
+                Toast.makeText(this@MainActivity, "🚨 Nueva alerta crítica recibida!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        val filter = IntentFilter("com.tecsup.aresapp.NUEVA_ALERTA")
+        ContextCompat.registerReceiver(
+            this, nuevaAlertaReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+    }
+
+    private fun observarAlertasNoLeidas() {
+        lifecycleScope.launch {
+            db.alertaDao().getCantNoLeidas().collect { unreadCount ->
+                contadorNotificaciones = unreadCount
+                runOnUiThread {
+                    badgeDrawable?.apply {
+                        number = unreadCount
+                        isVisible = unreadCount > 0
+                    }
+                }
+            }
+        }
+    }
+
+    private fun obtenerYEnviarFCMToken() {
+        val prefs = getSharedPreferences("ares_preferences", Context.MODE_PRIVATE)
+        val autorId = prefs.getInt("autor_id", -1)
+        if (autorId == -1) return
+
+        com.google.firebase.messaging.FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("MainActivity", "Fallo al obtener token FCM", task.exception)
+                    return@addOnCompleteListener
+                }
+                val token = task.result
+                Log.d("MainActivity", "Token FCM obtenido: $token")
+                
+                prefs.edit().putString("fcm_token", token).apply()
+                enviarTokenAlServidor(autorId, token)
+            }
+    }
+
+    private fun enviarTokenAlServidor(usuarioId: Int, token: String) {
+        val request = TokenPushRequest(token)
+        RetrofitClient.instance.registrarTokenPush(usuarioId, request)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.i("MainActivity", "Token FCM registrado con éxito en Django")
+                    } else {
+                        Log.e("MainActivity", "Fallo al registrar token FCM: ${response.code()}")
+                    }
+                }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("MainActivity", "Error de red al registrar token FCM: ${t.message}")
+                }
+            })
+    }
+
     private fun mostrarHistorialNotificacionesYMensajes() {
         limpiarNotificaciones()
-        MaterialAlertDialogBuilder(this)
-            .setTitle("🔔 Centro de Alertas Recientes")
-            .setMessage("No tienes nuevas instrucciones críticas pendientes del Administrador.")
-            .setPositiveButton("Entendido", null)
-            .show()
+        lifecycleScope.launch {
+            val alertas = db.alertaDao().getAllAlertasSync()
+            runOnUiThread {
+                if (alertas.isEmpty()) {
+                    MaterialAlertDialogBuilder(this@MainActivity)
+                        .setTitle("🔔 Historial de Alertas")
+                        .setMessage("No hay alertas de sensores registradas en la base local.")
+                        .setPositiveButton("Entendido", null)
+                        .show()
+                } else {
+                    val alertItems = alertas.map { alerta ->
+                        val formatoFecha = SimpleDateFormat("dd/MM HH:mm:ss", Locale.getDefault())
+                        val fechaStr = formatoFecha.format(Date(alerta.fecha))
+                        val indicador = if (alerta.leida) "✓" else "●"
+                        "$indicador [$fechaStr] [${alerta.nivel}] ${alerta.tipo}\n${alerta.mensaje}"
+                    }.toTypedArray()
+
+                    MaterialAlertDialogBuilder(this@MainActivity)
+                        .setTitle("🔔 Alertas Recientes")
+                        .setItems(alertItems) { dialog, which ->
+                            val selectedAlerta = alertas[which]
+                            lifecycleScope.launch {
+                                db.alertaDao().marcarComoLeida(selectedAlerta.id)
+                            }
+                            Toast.makeText(this@MainActivity, "Alerta marcada como leída", Toast.LENGTH_SHORT).show()
+                        }
+                        .setPositiveButton("Marcar leídas") { _, _ ->
+                            lifecycleScope.launch {
+                                db.alertaDao().marcarTodasComoLeidas()
+                            }
+                        }
+                        .setNegativeButton("Borrar todo") { _, _ ->
+                            lifecycleScope.launch {
+                                db.alertaDao().eliminarTodas()
+                            }
+                        }
+                        .setNeutralButton("Cerrar", null)
+                        .show()
+                }
+            }
+        }
     }
 
     private fun crearCanalNotificaciones() {
@@ -602,6 +726,9 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         mensajesWsClient?.close()
         unregisterReceiver(alertaReceiver)
+        if (::nuevaAlertaReceiver.isInitialized) {
+            unregisterReceiver(nuevaAlertaReceiver)
+        }
     }
 
     inner class AlertaAccionReceiver : BroadcastReceiver() {

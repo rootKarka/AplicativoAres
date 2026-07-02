@@ -63,4 +63,11 @@ interface ApiService {
         @Path("id") mensajeId: Int,
         @Body body: MensajeLeidoRequest = MensajeLeidoRequest()
     ): Call<MensajeOperadorDto>
+
+    // ── Registrar FCM token_push del operador ──
+    @PATCH("api/usuarios/{id}/")
+    fun registrarTokenPush(
+        @Path("id") usuarioId: Int,
+        @Body body: TokenPushRequest
+    ): Call<Void>
 }

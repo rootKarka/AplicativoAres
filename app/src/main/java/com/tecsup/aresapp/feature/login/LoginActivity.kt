@@ -51,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                             preferences.edit().apply {
                                 putBoolean("is_logged_in", true)
                                 putString("user_name",     usuario?.nombre)
+                                putString("user_email",    email)
                                 putString("user_role",     usuario?.rol)
                                 putInt("autor_id",         usuario?.id ?: 1)  // ← ID del operador
                                 putInt("mision_id",        1)                 // TODO: misión activa

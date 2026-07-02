@@ -124,3 +124,7 @@ data class MensajeOperadorRequest(
 data class MensajeLeidoRequest(
     val leido: Boolean = true,
 )
+
+data class TokenPushRequest(
+    val token_push: String
+)
